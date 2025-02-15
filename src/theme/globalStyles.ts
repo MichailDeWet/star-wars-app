@@ -10,6 +10,7 @@ export const GlobalStyles = createGlobalStyle`
   body {
     background-color: ${({ theme }) => theme.background};
     color: ${({ theme }) => theme.color};
-    font-family: 'Arial', sans-serif;
+    font-family: ${({ theme }) => theme.bodyFont};
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 `;
