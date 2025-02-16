@@ -17,6 +17,7 @@ const sharedProps: DefaultTheme = {
 
   /* Sizing */
   headerLinkSize: "1.1rem",
+  headerHeight: "92px",
 };
 
 export const lightTheme: DefaultTheme = {

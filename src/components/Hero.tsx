@@ -4,7 +4,7 @@ import styled from "styled-components";
 const CrawlContainer = styled.div`
   position: relative;
   width: 100%;
-  height: 100%;
+  height: ${({ theme }) => `calc(100vh - ${theme.headerHeight})`};
   perspective: 1000px;
   background-image: url("/assets/hero-background.webp");
   background-size: cover;

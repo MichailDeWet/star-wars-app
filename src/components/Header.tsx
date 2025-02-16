@@ -8,7 +8,7 @@ import { PagesPaths } from "../types/PagesPaths";
 
 const HeaderContainer = styled.header`
   width: 100%;
-  height: 92px;
+  height: ${({ theme }) => theme.headerHeight};
   padding: 20px;
   display: flex;
   justify-content: space-between;

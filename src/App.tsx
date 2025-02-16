@@ -12,8 +12,7 @@ import Planets from "./pages/Planets";
 import { PagesPaths } from "./types/PagesPaths";
 
 const RoutesContainer = styled.div`
-  margin-top: 92px;
-  height: calc(100vh - 92px);
+  margin-top: ${({ theme }) => theme.headerHeight};
 `;
 
 const App = (): JSX.Element => {
