@@ -4,13 +4,22 @@ export type Film = {
   opening_crawl: string;
   director: string;
   producer: string;
-  release_date: Date;
+  release_date: string;
   characters: string[];
   planets: string[];
   starships: string[];
   vehicles: string[];
   species: string[];
-  created: Date;
-  edited: Date;
+  created: string;
+  edited: string;
   url: string;
+};
+
+export type TSortable = "alpha" | "number" | "time";
+export type TSortDirection = "asc" | "desc";
+
+export type TableHeadings = {
+  key: keyof Film;
+  label: string;
+  sortableType?: TSortable;
 };

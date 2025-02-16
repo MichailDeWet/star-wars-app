@@ -3,7 +3,7 @@ import { Hero } from "../components/Hero";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import { fetchFilms } from "../api/films";
-import { Film } from "../models/types";
+import { Film, TableHeadings } from "../models/types";
 import {
   fetchFilmsStart,
   fetchFilmsSuccess,
@@ -11,10 +11,24 @@ import {
   sortFilms,
 } from "../store/filmsSlice";
 import { convertEpisodeIdToRoman } from "../utils/filmUtils";
+import {
+  PageContainer,
+  PageTitle,
+  StyledTable,
+  StyledTH,
+} from "../shared/styles/styles";
+import { getSortIcon } from "../utils/tableUtils";
+import { ReactComponent as SortDirection } from "../assets/img/icons/sort-direction.svg";
+
+const headings: TableHeadings[] = [
+  { key: "release_date", label: "Release Date", sortableType: "time" },
+  { key: "title", label: "Title", sortableType: "alpha" },
+  { key: "episode_id", label: "Episode", sortableType: "number" },
+];
 
 const Home = (): JSX.Element => {
   const dispatch = useDispatch();
-  const { films, loading, error } = useSelector(
+  const { films, sortKey, sortDirection, loading, error } = useSelector(
     (state: RootState) => state.films
   );
 
@@ -39,31 +53,53 @@ const Home = (): JSX.Element => {
     dispatch(sortFilms(key));
   };
 
+  const getSortDirection = (key: keyof Film) => {
+    if (sortKey === key) {
+      return sortDirection;
+    }
+
+    return undefined;
+  };
+
   return (
-    <div>
+    <>
       <Hero />
-      <h1>Star Wars Movies</h1>
-      {loading && <p>Loading films...</p>}
-      {error && <p>{error}</p>}
-      <table>
-        <thead>
-          <tr>
-            <th onClick={() => handleSort("release_date")}>Release Date</th>
-            <th onClick={() => handleSort("title")}>Title</th>
-            <th onClick={() => handleSort("episode_id")}>Episode</th>
-          </tr>
-        </thead>
-        <tbody>
-          {films.map((film) => (
-            <tr key={film.url}>
-              <td>{new Date(film.release_date).toLocaleDateString()}</td>
-              <td>{film.title}</td>
-              <td>Episode {convertEpisodeIdToRoman(film.episode_id)}</td>
+
+      <PageContainer>
+        <PageTitle>Movies</PageTitle>
+        {loading && <p>Loading films...</p>}
+        {error && <p>{error}</p>}
+        <StyledTable>
+          <thead>
+            <tr>
+              {headings.map(({ sortableType, key, label }) => (
+                <StyledTH
+                  key={key}
+                  sortableType={sortableType}
+                  sortDirection={getSortDirection(key)}
+                  onClick={() => handleSort(key)}
+                >
+                  {label}
+                  {getSortIcon(sortableType)}
+                  {getSortDirection(key) && (
+                    <SortDirection className="sort-direction" />
+                  )}
+                </StyledTH>
+              ))}
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+          </thead>
+          <tbody>
+            {films.map((film) => (
+              <tr key={film.url}>
+                <td>{new Date(film.release_date).toLocaleDateString()}</td>
+                <td>{film.title}</td>
+                <td>Episode {convertEpisodeIdToRoman(film.episode_id)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </StyledTable>
+      </PageContainer>
+    </>
   );
 };
 
