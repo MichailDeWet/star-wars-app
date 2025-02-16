@@ -21,9 +21,14 @@ import { getSortIcon } from "../utils/tableUtils";
 import { ReactComponent as SortDirection } from "../assets/img/icons/sort-direction.svg";
 
 const headings: TableHeadings[] = [
-  { key: "release_date", label: "Release Date", sortableType: "time" },
-  { key: "title", label: "Title", sortableType: "alpha" },
-  { key: "episode_id", label: "Episode", sortableType: "number" },
+  {
+    key: "release_date",
+    label: "Release Date",
+    sortableType: "time",
+    width: "25%",
+  },
+  { key: "title", label: "Title", sortableType: "alpha", width: "50%" },
+  { key: "episode_id", label: "Episode", sortableType: "number", width: "25%" },
 ];
 
 const Home = (): JSX.Element => {
@@ -72,12 +77,13 @@ const Home = (): JSX.Element => {
         <StyledTable>
           <thead>
             <tr>
-              {headings.map(({ sortableType, key, label }) => (
+              {headings.map(({ sortableType, key, label, width }) => (
                 <StyledTH
                   key={key}
                   sortableType={sortableType}
                   sortDirection={getSortDirection(key)}
                   onClick={() => handleSort(key)}
+                  width={width}
                 >
                   {label}
                   {getSortIcon(sortableType)}

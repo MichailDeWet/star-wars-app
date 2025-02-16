@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { TSortable, TSortDirection } from "../../models/types";
-import { getIconColors } from "../../utils/tableUtils";
 
 export const PageTitle = styled.h1`
   margin: 1rem 0;
@@ -31,47 +30,55 @@ export const StyledTable = styled.table`
 `;
 
 export const StyledTH = styled.th<{
+  width: string;
   sortableType?: TSortable;
   sortDirection?: TSortDirection;
 }>`
   ${({ sortableType }) => sortableType && `cursor: pointer;`}
   background-color: ${({ theme }) => theme.background};
   color: ${({ theme }) => theme.headingColor};
+  width: ${({ width }) => width};
 
   &:hover {
     background-color: ${({ theme }) => theme.tableHeadingHoverBackgroundColor};
     color: ${({ theme }) => theme.tableHeadingHoverColor};
 
-    svg {
-      fill: ${({ sortableType, theme }) =>
-        getIconColors({ theme, isFill: true, onHover: false, sortableType })};
+    .alpha,
+    .number {
+      fill: ${({ theme }) => theme.tableHeadingHoverColor};
+    }
 
-      path,
-      circle {
-        stroke: ${({ sortableType, theme }) =>
-          getIconColors({ theme, isFill: false, onHover: true, sortableType })};
-      }
+    .alpha path,
+    .time path,
+    .time circle {
+      stroke: ${({ theme }) => theme.tableHeadingHoverColor};
     }
 
     .sort-direction path {
-      fill: ${({ theme }) =>
-        getIconColors({ theme, isFill: true, onHover: true })};
+      fill: ${({ theme }) => theme.tableHeadingHoverColor};
     }
   }
 
   svg {
-    width: 1.2rem;
     aspect-ratio: 1;
     float: right;
+  }
 
-    fill: ${({ sortableType, theme }) =>
-      getIconColors({ theme, isFill: true, onHover: false, sortableType })};
+  .alpha,
+  .number,
+  .time {
+    width: 1.2rem;
+  }
 
-    path,
-    circle {
-      stroke: ${({ sortableType, theme }) =>
-        getIconColors({ theme, isFill: false, onHover: false, sortableType })};
-    }
+  .alpha,
+  .number {
+    fill: ${({ theme }) => theme.headingColor};
+  }
+
+  .alpha path,
+  .time path,
+  .time circle {
+    stroke: ${({ theme }) => theme.headingColor};
   }
 
   .sort-direction {
@@ -81,8 +88,7 @@ export const StyledTH = styled.th<{
       sortDirection === "desc" && `transform: scale(-1, 1);`}
 
     path {
-      fill: ${({ theme }) =>
-        getIconColors({ theme, isFill: true, onHover: false })};
+      fill: ${({ theme }) => theme.headingColor};
     }
   }
 `;

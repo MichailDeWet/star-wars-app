@@ -21,5 +21,6 @@ export type TSortDirection = "asc" | "desc";
 export type TableHeadings = {
   key: keyof Film;
   label: string;
+  width: string;
   sortableType?: TSortable;
 };
