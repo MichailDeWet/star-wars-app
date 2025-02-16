@@ -11,7 +11,7 @@ import {
   StyledTable,
   StyledTH,
 } from "../shared/styles/styles";
-import { getSortIcon } from "../utils/tableUtils";
+import { getSortDirection, getSortIcon } from "../utils/tableUtils";
 import { ReactComponent as SortDirection } from "../assets/img/icons/sort-direction.svg";
 import { PagesPaths } from "../models/enums";
 import { useMovies } from "../shared/hooks/useMovies";
@@ -33,14 +33,6 @@ const Home = (): JSX.Element => {
 
   const handleSort = (key: keyof Film) => {
     dispatch(sortFilms(key));
-  };
-
-  const getSortDirection = (key: keyof Film) => {
-    if (sortKey === key) {
-      return sortDirection;
-    }
-
-    return undefined;
   };
 
   const createNavLink = (episodeId: number, title: string) => {
@@ -66,13 +58,13 @@ const Home = (): JSX.Element => {
                 <StyledTH
                   key={key}
                   sortableType={sortableType}
-                  sortDirection={getSortDirection(key)}
+                  sortDirection={getSortDirection(key, sortKey, sortDirection)}
                   onClick={() => handleSort(key)}
                   width={width}
                 >
                   {label}
                   {getSortIcon(sortableType)}
-                  {getSortDirection(key) && (
+                  {getSortDirection(key, sortKey, sortDirection) && (
                     <SortDirection className="sort-direction" />
                   )}
                 </StyledTH>

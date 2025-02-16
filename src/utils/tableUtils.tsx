@@ -1,7 +1,7 @@
 import { ReactComponent as SortByAlpha } from "../assets/img/icons/sort-by-alpha.svg";
 import { ReactComponent as SortByNumber } from "../assets/img/icons/sort-by-number.svg";
 import { ReactComponent as SortByTime } from "../assets/img/icons/sort-by-time.svg";
-import { TSortable } from "../models/types";
+import { Film, TSortable, TSortDirection } from "../models/types";
 
 export const getSortIcon = (sortableType?: TSortable) => {
   switch (sortableType) {
@@ -14,4 +14,26 @@ export const getSortIcon = (sortableType?: TSortable) => {
     default:
       return null;
   }
+};
+
+export const dateConstructor = (release_date: string): string => {
+  const date = new Date(release_date);
+
+  return date.toLocaleString("en-US", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+};
+
+export const getSortDirection = (
+  key: keyof Film,
+  sortKey: keyof Film,
+  sortDirection: TSortDirection
+) => {
+  if (sortKey === key) {
+    return sortDirection;
+  }
+
+  return undefined;
 };

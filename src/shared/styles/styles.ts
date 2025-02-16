@@ -8,7 +8,7 @@ export const PageTitle = styled.h1`
 `;
 
 export const PageContainer = styled.div`
-  margin: 0 3rem 3rem;
+  padding: 1rem 3rem 3rem;
 `;
 
 export const StyledTable = styled.table`

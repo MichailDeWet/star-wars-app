@@ -1,5 +1,6 @@
-import { JSX } from "react";
+import { Fragment, JSX } from "react";
 import styled from "styled-components";
+import { IHeroPage } from "../models/interfaces";
 
 const CrawlContainer = styled.div`
   position: relative;
@@ -14,20 +15,19 @@ const CrawlContainer = styled.div`
 
 const CrawlText = styled.div`
   font-family: ${({ theme }) => theme.crawlFont};
-  font-size: 28px;
+  font-size: 65px;
   font-weight: bold;
   color: ${({ theme }) => theme.crawlColor};
   text-align: center;
   position: relative;
   bottom: -100%;
-  width: 80%;
-  animation: crawl 40s linear infinite;
+  animation: crawl 30s linear infinite;
   justify-self: anchor-center;
 
   @keyframes crawl {
     0% {
       bottom: -100%;
-      transform: rotateX(20deg) translateZ(0);
+      transform: rotateX(45deg) translateZ(0);
       opacity: 1;
     }
 
@@ -36,38 +36,49 @@ const CrawlText = styled.div`
     }
 
     100% {
-      bottom: 500rem;
-      transform: rotateX(35deg) translateZ(-150rem);
+      bottom: 180rem;
+      transform: rotateX(55deg) translateZ(-150rem);
       opacity: 0;
     }
   }
 `;
 
-export const Hero = (): JSX.Element => (
-  <CrawlContainer>
-    <CrawlText>
-      <h1>Testing Header</h1>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
-        pretium imperdiet mollis. Praesent laoreet, urna nec aliquam facilisis,
-        est velit efficitur nibh, nec laoreet leo mauris sed turpis. Donec nec
-        vehicula neque. Phasellus vitae dignissim enim. Pellentesque varius arcu
-        ut magna eleifend consectetur.
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
-        pretium imperdiet mollis. Praesent laoreet, urna nec aliquam facilisis,
-        est velit efficitur nibh, nec laoreet leo mauris sed turpis. Donec nec
-        vehicula neque. Phasellus vitae dignissim enim. Pellentesque varius arcu
-        ut magna eleifend consectetur.
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
-        pretium imperdiet mollis. Praesent laoreet, urna nec aliquam facilisis,
-        est velit efficitur nibh, nec laoreet leo mauris sed turpis. Donec nec
-        vehicula neque. Phasellus vitae dignissim enim. Pellentesque varius arcu
-        ut magna eleifend consectetur.
-      </p>
-    </CrawlText>
-  </CrawlContainer>
-);
+const CrawlParagraph = styled.p`
+  margin-top: 6rem;
+  text-align: justify;
+  text-align-last: justify;
+`;
+
+const convertToHTML = (text: string) => {
+  // Split the text by two newlines to create paragraphs
+  const paragraphs = text.split(/\r\n\r\n/);
+
+  return paragraphs.map((para, index) => (
+    <CrawlParagraph key={index}>
+      {para.split(/\r\n/).map((line, lineIndex) => (
+        <Fragment key={lineIndex}>
+          {line}
+          {lineIndex !== para.split(/\r\n/).length - 1 && <br />}
+        </Fragment>
+      ))}
+    </CrawlParagraph>
+  ));
+};
+
+export const Hero = ({
+  children,
+  opening_crawl,
+  heading,
+  subHeading,
+}: IHeroPage): JSX.Element => {
+  return (
+    <CrawlContainer>
+      {children}
+      <CrawlText>
+        <h1>{heading}</h1>
+        <h2>{subHeading}</h2>
+        {convertToHTML(opening_crawl || "")}
+      </CrawlText>
+    </CrawlContainer>
+  );
+};
