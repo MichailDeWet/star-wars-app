@@ -10,6 +10,7 @@ import Characters from "./pages/Characters";
 import Home from "./pages/Home";
 import Planets from "./pages/Planets";
 import { PagesPaths } from "./models/enums";
+import MovieDetails from "./pages/MovieDetails";
 
 const RoutesContainer = styled.div`
   margin-top: ${({ theme }) => theme.headerHeight};
@@ -28,6 +29,10 @@ const App = (): JSX.Element => {
             <Route path={PagesPaths.HOME} element={<Home />} />
             <Route path={PagesPaths.WILDCARD} element={<Home />} />
             <Route path={PagesPaths.CHARACTERS} element={<Characters />} />
+            <Route
+              path={`${PagesPaths.MOVIE}/:episode_id/:trail`}
+              element={<MovieDetails />}
+            />
             <Route path={PagesPaths.PLANETS} element={<Planets />} />
           </Routes>
         </RoutesContainer>

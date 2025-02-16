@@ -1,17 +1,11 @@
-import { JSX, useEffect } from "react";
+import { JSX } from "react";
 import { Hero } from "../components/Hero";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../store/store";
-import { fetchFilms } from "../api/films";
+import { useDispatch } from "react-redux";
 import { Film, TableHeadings } from "../models/types";
-import {
-  fetchFilmsStart,
-  fetchFilmsSuccess,
-  fetchFilmsFailure,
-  sortFilms,
-} from "../store/filmsSlice";
+import { sortFilms } from "../store/filmsSlice";
 import { convertEpisodeIdToRoman } from "../utils/filmUtils";
 import {
+  NavLink,
   PageContainer,
   PageTitle,
   StyledTable,
@@ -19,6 +13,8 @@ import {
 } from "../shared/styles/styles";
 import { getSortIcon } from "../utils/tableUtils";
 import { ReactComponent as SortDirection } from "../assets/img/icons/sort-direction.svg";
+import { PagesPaths } from "../models/enums";
+import { useMovies } from "../shared/hooks/useMovies";
 
 const headings: TableHeadings[] = [
   {
@@ -33,26 +29,7 @@ const headings: TableHeadings[] = [
 
 const Home = (): JSX.Element => {
   const dispatch = useDispatch();
-  const { films, sortKey, sortDirection, loading, error } = useSelector(
-    (state: RootState) => state.films
-  );
-
-  const getFilms = async (): Promise<void> => {
-    dispatch(fetchFilmsStart());
-
-    try {
-      const filmsData = await fetchFilms();
-      dispatch(fetchFilmsSuccess(filmsData));
-    } catch (_error) {
-      dispatch(fetchFilmsFailure("Error fetching films"));
-    }
-  };
-
-  useEffect(() => {
-    if (!films.length && !loading && !error) {
-      getFilms();
-    }
-  }, []);
+  const { films, sortKey, sortDirection, loading, error } = useMovies();
 
   const handleSort = (key: keyof Film) => {
     dispatch(sortFilms(key));
@@ -64,6 +41,14 @@ const Home = (): JSX.Element => {
     }
 
     return undefined;
+  };
+
+  const createNavLink = (episodeId: number, title: string) => {
+    return `${
+      PagesPaths.MOVIE
+    }/${episodeId}/star-wars-episode-${convertEpisodeIdToRoman(
+      episodeId
+    )}-${title.toLowerCase().replace(/ /g, "-")}`;
   };
 
   return (
@@ -95,11 +80,15 @@ const Home = (): JSX.Element => {
             </tr>
           </thead>
           <tbody>
-            {films.map((film) => (
-              <tr key={film.url}>
-                <td>{new Date(film.release_date).toLocaleDateString()}</td>
-                <td>{film.title}</td>
-                <td>Episode {convertEpisodeIdToRoman(film.episode_id)}</td>
+            {films.map(({ url, release_date, title, episode_id }) => (
+              <tr key={url}>
+                <td>{new Date(release_date).toLocaleDateString()}</td>
+                <td>
+                  <NavLink isTableLink to={createNavLink(episode_id, title)}>
+                    {title}
+                  </NavLink>
+                </td>
+                <td>Episode {convertEpisodeIdToRoman(episode_id)}</td>
               </tr>
             ))}
           </tbody>

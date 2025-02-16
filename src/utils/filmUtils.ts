@@ -1,3 +1,5 @@
+import { Film } from "../models/types";
+
 export const convertEpisodeIdToRoman = (episodeId: number): string => {
   switch (episodeId) {
     case 1:
@@ -15,4 +17,12 @@ export const convertEpisodeIdToRoman = (episodeId: number): string => {
     default:
       return "";
   }
+};
+
+export const getFilmById = (films: Film[], id?: string): Film | undefined => {
+  if (!films || !id) {
+    return undefined;
+  }
+
+  return films.find(({ episode_id }) => episode_id === Number(id));
 };

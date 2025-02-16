@@ -20,6 +20,7 @@ const sharedProps: DefaultTheme = {
 export const lightTheme: DefaultTheme = {
   ...sharedProps,
   background: white,
+  borderColor: blue,
   color: black,
   crawlColor: blue,
   headingColor: blue,
@@ -36,6 +37,7 @@ export const lightTheme: DefaultTheme = {
 export const darkTheme: DefaultTheme = {
   ...sharedProps,
   background: black,
+  borderColor: yellow,
   color: white,
   crawlColor: yellow,
   headingColor: yellow,

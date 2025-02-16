@@ -1,6 +1,7 @@
 export enum PagesPaths {
   CHARACTERS = "/characters",
   HOME = "/",
+  MOVIE = "/movie",
   PLANETS = "/planets",
   WILDCARD = "*", // This is a catch-all route
 }

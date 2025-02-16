@@ -26,13 +26,11 @@ const filmSlice = createSlice({
       state.error = null;
     },
     fetchFilmsSuccess(state: FilmState, action: PayloadAction<Film[]>) {
-      console.log("Success");
       state.films = action.payload;
       state.loading = false;
       state.error = null;
     },
     fetchFilmsFailure(state: FilmState, action: PayloadAction<string>) {
-      console.log("Error");
       state.loading = false;
       state.error = action.payload;
     },

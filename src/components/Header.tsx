@@ -3,8 +3,9 @@ import { useDispatch } from "react-redux";
 import { toggleTheme } from "../store/themeSlice";
 import { ReactComponent as Logo } from "../assets/img/logos/star-wars-logo.svg";
 import { JSX } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { PagesPaths } from "../models/enums";
+import { NavLink } from "../shared/styles/styles";
 
 const HeaderContainer = styled.header`
   width: 100%;
@@ -41,16 +42,6 @@ const StyledLogo = styled(Logo)`
 const Nav = styled.nav`
   display: flex;
   gap: 20px;
-`;
-
-const NavLink = styled(Link)`
-  font-size: ${({ theme }) => theme.headerLinkSize};
-  color: ${({ theme }) => theme.linkColor};
-  text-decoration: none;
-
-  &:hover {
-    text-decoration: underline;
-  }
 `;
 
 const ThemeToggleButton = styled.div`

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { TSortable, TSortDirection } from "../../models/types";
+import { Link } from "react-router-dom";
 
 export const PageTitle = styled.h1`
   margin: 1rem 0;
@@ -12,12 +13,21 @@ export const PageContainer = styled.div`
 
 export const StyledTable = styled.table`
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid ${({ theme }) => theme.borderColor};
 
   th,
   td {
     padding: 0.5rem;
-    border: 1px solid ${({ theme }) => theme.color};
+  }
+
+  th:not(:first-child),
+  td:not(:first-child) {
+    border-left: 1px solid ${({ theme }) => theme.tableOddRowColor};
   }
 
   tr:nth-child(even) {
@@ -90,5 +100,17 @@ export const StyledTH = styled.th<{
     path {
       fill: ${({ theme }) => theme.headingColor};
     }
+  }
+`;
+
+export const NavLink = styled(Link)<{ isTableLink?: boolean }>`
+  font-size: ${({ theme }) => theme.headerLinkSize};
+  color: ${({ theme, isTableLink }) =>
+    isTableLink ? theme.color : theme.linkColor};
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+    color: ${({ theme }) => theme.linkColor};
   }
 `;
