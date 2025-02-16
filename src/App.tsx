@@ -9,6 +9,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Characters from "./pages/Characters";
 import Home from "./pages/Home";
 import Planets from "./pages/Planets";
+import { PagesPaths } from "./types/PagesPaths";
 
 const RoutesContainer = styled.div`
   margin-top: 92px;
@@ -25,10 +26,10 @@ const App = (): JSX.Element => {
         <Header />
         <RoutesContainer>
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="*" element={<Home />} />
-            <Route path="/characters" element={<Characters />} />
-            <Route path="/planets" element={<Planets />} />
+            <Route path={PagesPaths.HOME} element={<Home />} />
+            <Route path={PagesPaths.WILDCARD} element={<Home />} />
+            <Route path={PagesPaths.CHARACTERS} element={<Characters />} />
+            <Route path={PagesPaths.PLANETS} element={<Planets />} />
           </Routes>
         </RoutesContainer>
       </BrowserRouter>
