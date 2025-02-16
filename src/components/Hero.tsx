@@ -6,7 +6,7 @@ const CrawlContainer = styled.div`
   width: 100%;
   height: ${({ theme }) => `calc(100vh - ${theme.headerHeight})`};
   perspective: 1000px;
-  background-image: url("/assets/hero-background.webp");
+  background-image: ${({ theme }) => `url(${theme.heroBackground})`};
   background-size: cover;
   background-position: center;
   overflow: hidden;

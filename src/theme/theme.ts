@@ -1,9 +1,11 @@
 import { DefaultTheme } from "styled-components";
 import { ReactComponent as JediLogo } from "../assets/img/logos/jedi-logo.svg";
 import { ReactComponent as SithLogo } from "../assets/img/logos/sith-logo.svg";
+import LightBackground from "../assets/img/backgrounds/hero-background-light.webp";
+import DarkBackground from "../assets/img/backgrounds/hero-background-dark.webp";
 
 const black = "#000000";
-const blue = "#2596be";
+const blue = "#2596BE";
 const white = "#FFFFFF";
 const yellow = "#FFE81F";
 
@@ -31,6 +33,7 @@ export const lightTheme: DefaultTheme = {
   tableOddRowColor: `${blue}20`, // 20% opacity
 
   /* Images */
+  heroBackground: LightBackground,
   themeToggle: JediLogo,
 };
 
@@ -48,5 +51,6 @@ export const darkTheme: DefaultTheme = {
   tableOddRowColor: `${yellow}30`, // 30% opacity
 
   /* Images */
+  heroBackground: DarkBackground,
   themeToggle: SithLogo,
 };
