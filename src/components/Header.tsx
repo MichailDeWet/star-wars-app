@@ -80,7 +80,6 @@ const Header = (): JSX.Element => {
       <Nav>
         <NavLink to={PagesPaths.HOME}>Home</NavLink>
         <NavLink to={PagesPaths.CHARACTERS}>Characters</NavLink>
-        <NavLink to={PagesPaths.PLANETS}>Planets</NavLink>
       </Nav>
       <ThemeToggleButton onClick={handleThemeToggle}>
         <ToggleIcon />

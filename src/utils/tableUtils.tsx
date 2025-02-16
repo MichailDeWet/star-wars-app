@@ -26,14 +26,14 @@ export const dateConstructor = (release_date: string): string => {
   });
 };
 
-export const getSortDirection = (
-  key: keyof Film,
-  sortKey: keyof Film,
-  sortDirection: TSortDirection
-) => {
+export function getSortDirection<T>(
+  key: keyof T,
+  sortDirection: TSortDirection,
+  sortKey?: keyof T
+): TSortDirection | undefined {
   if (sortKey === key) {
     return sortDirection;
   }
 
   return undefined;
-};
+}

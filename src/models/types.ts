@@ -26,8 +26,8 @@ export type Character = {
 export type TSortable = "alpha" | "number" | "time";
 export type TSortDirection = "asc" | "desc";
 
-export type TableHeadings = {
-  key: keyof Film;
+export type TableHeadings<T> = {
+  key: keyof T;
   label: string;
   width: string;
   sortableType?: TSortable;

@@ -20,7 +20,8 @@ import {
 import { Hero } from "../components/Hero";
 import styled from "styled-components";
 import { useObserveElement } from "../shared/hooks/useObserveElement";
-import { TableHeadings } from "../models/types";
+import { Character, TableHeadings } from "../models/types";
+import { ReactComponent as SortDirection } from "../assets/img/icons/sort-direction.svg";
 
 const DetailContainer = styled.div`
   width: 350px;
@@ -40,15 +41,20 @@ const DetailContainer = styled.div`
   }
 `;
 
-const headings: TableHeadings[] = [
+const headings: TableHeadings<Character>[] = [
   {
-    key: "release_date",
-    label: "Release Date",
+    key: "birth_year",
+    label: "Birth Year",
     sortableType: "time",
     width: "25%",
   },
-  { key: "title", label: "Title", sortableType: "alpha", width: "50%" },
-  { key: "episode_id", label: "Episode", sortableType: "number", width: "25%" },
+  {
+    key: "name",
+    label: "Name",
+    sortableType: "alpha",
+    width: "50%",
+  },
+  { key: "gender", label: "Gender", sortableType: "alpha", width: "25%" },
 ];
 
 const MovieDetailsPage = (): JSX.Element => {
@@ -58,7 +64,9 @@ const MovieDetailsPage = (): JSX.Element => {
   }>();
 
   const { films } = useMovies();
-  const { characters } = useSelector((state: RootState) => state.characters);
+  const { characters, sortKey, sortDirection } = useSelector(
+    (state: RootState) => state.characters
+  );
   const dispatch = useDispatch();
 
   const { isInView, elementRef } = useObserveElement();
@@ -69,13 +77,39 @@ const MovieDetailsPage = (): JSX.Element => {
   );
 
   useEffect(() => {
-    if (isInView && !Object.keys(characters).length && film?.characters) {
-      // Fetch character data only when it's opened and the data is not in Redux
-      fetchCharacterData(film.characters).then((data) => {
-        dispatch(setCharacters(data));
-      });
+    if (isInView && film) {
+      const missingCharacterUrls = film.characters.filter(
+        (url) => !Object.keys(characters).includes(url)
+      );
+
+      if (missingCharacterUrls.length > 0) {
+        fetchCharacterData(missingCharacterUrls).then((data) => {
+          dispatch(setCharacters(data));
+        });
+      }
     }
-  }, [isInView, characters, dispatch, film?.characters]);
+  }, [isInView, characters, film?.characters]);
+
+  const TableRows = useMemo(
+    () =>
+      Object.keys(characters).length > 0 &&
+      film?.characters.map((url) => {
+        const { name, birth_year, gender } = characters[url];
+
+        return (
+          <tr key={url}>
+            <td>{birth_year}</td>
+            <td>
+              {/* <NavLink isTableLink to={createNavLink(episode_id, title)}> */}
+              {name}
+              {/* </NavLink> */}
+            </td>
+            <td>{gender}</td>
+          </tr>
+        );
+      }),
+    [characters, film?.characters]
+  );
 
   if (!film) {
     return <div>Movie Not Found</div>;
@@ -106,65 +140,35 @@ const MovieDetailsPage = (): JSX.Element => {
 
       <PageContainer>
         <PageTitle ref={elementRef}>Cast</PageTitle>
-        {characters && (
-          <></>
-          // <ul>
-          //   {film.characters.map((url) => {
-          //     const character = characters[url];
-
-          //     return character ? (
-          //       <li key={url}>
-          //         <h3>{character.name}</h3>
-          //         <p>Height: {character.height} cm</p>
-          //         <p>Mass: {character.mass} kg</p>
-          //         <p>Hair Color: {character.hair_color}</p>
-          //         <p>Skin Color: {character.skin_color}</p>
-          //         <p>Eye Color: {character.eye_color}</p>
-          //         <p>Birth Year: {character.birth_year}</p>
-          //         <p>Gender: {character.gender}</p>
-          //         <p>Homeworld: {character.homeworld}</p>
-          //       </li>
-          //     ) : null;
-          //   })}
-          // </ul>
-          // <StyledTable>
-          //   <thead>
-          //     <tr>
-          //       {headings.map(({ sortableType, key, label, width }) => (
-          //         <StyledTH
-          //           key={key}
-          //           sortableType={sortableType}
-          //           sortDirection={getSortDirection(
-          //             key,
-          //             sortKey,
-          //             sortDirection
-          //           )}
-          //           onClick={() => handleSort(key)}
-          //           width={width}
-          //         >
-          //           {label}
-          //           {getSortIcon(sortableType)}
-          //           {getSortDirection(key, sortKey, sortDirection) && (
-          //             <SortDirection className="sort-direction" />
-          //           )}
-          //         </StyledTH>
-          //       ))}
-          //     </tr>
-          //   </thead>
-          //   <tbody>
-          //     {films.map(({ url, release_date, title, episode_id }) => (
-          //       <tr key={url}>
-          //         <td>{new Date(release_date).toLocaleDateString()}</td>
-          //         <td>
-          //           <NavLink isTableLink to={createNavLink(episode_id, title)}>
-          //             {title}
-          //           </NavLink>
-          //         </td>
-          //         <td>Episode {convertEpisodeIdToRoman(episode_id)}</td>
-          //       </tr>
-          //     ))}
-          //   </tbody>
-          // </StyledTable>
+        {Object.keys(characters).length > 0 && (
+          <StyledTable>
+            <thead>
+              <tr>
+                {headings.map(({ sortableType, key, label, width }) => (
+                  <StyledTH
+                    key={key}
+                    sortableType={sortableType}
+                    sortDirection={getSortDirection(
+                      key,
+                      sortDirection,
+                      sortKey
+                    )}
+                    // onClick={() => handleSort(key)}
+                    width={width}
+                  >
+                    {label}
+                    {getSortIcon(sortableType)}
+                    {getSortDirection<Character>(
+                      key,
+                      sortDirection,
+                      sortKey
+                    ) && <SortDirection className="sort-direction" />}
+                  </StyledTH>
+                ))}
+              </tr>
+            </thead>
+            <tbody>{TableRows}</tbody>
+          </StyledTable>
         )}
       </PageContainer>
     </>

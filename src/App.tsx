@@ -8,7 +8,6 @@ import Header from "./components/Header";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Characters from "./pages/Characters";
 import Home from "./pages/Home";
-import Planets from "./pages/Planets";
 import { PagesPaths } from "./models/enums";
 import MovieDetails from "./pages/MovieDetails";
 
@@ -33,7 +32,6 @@ const App = (): JSX.Element => {
               path={`${PagesPaths.MOVIE}/:episode_id/:trail`}
               element={<MovieDetails />}
             />
-            <Route path={PagesPaths.PLANETS} element={<Planets />} />
           </Routes>
         </RoutesContainer>
       </BrowserRouter>

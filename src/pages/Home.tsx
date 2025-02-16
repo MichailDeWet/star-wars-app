@@ -16,7 +16,7 @@ import { ReactComponent as SortDirection } from "../assets/img/icons/sort-direct
 import { PagesPaths } from "../models/enums";
 import { useMovies } from "../shared/hooks/useMovies";
 
-const headings: TableHeadings[] = [
+const headings: TableHeadings<Film>[] = [
   {
     key: "release_date",
     label: "Release Date",
@@ -58,13 +58,13 @@ const Home = (): JSX.Element => {
                 <StyledTH
                   key={key}
                   sortableType={sortableType}
-                  sortDirection={getSortDirection(key, sortKey, sortDirection)}
+                  sortDirection={getSortDirection(key, sortDirection, sortKey)}
                   onClick={() => handleSort(key)}
                   width={width}
                 >
                   {label}
                   {getSortIcon(sortableType)}
-                  {getSortDirection(key, sortKey, sortDirection) && (
+                  {getSortDirection(key, sortDirection, sortKey) && (
                     <SortDirection className="sort-direction" />
                   )}
                 </StyledTH>

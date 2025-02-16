@@ -11,10 +11,8 @@ export const useObserveElement = () => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            console.log("LOG: in view");
             setIsInView(true);
           } else {
-            console.log("LOG: NOT in view");
             setIsInView(false);
           }
         });

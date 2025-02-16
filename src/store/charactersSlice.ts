@@ -1,12 +1,20 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Character } from "../models/types";
+import { Character, TSortDirection } from "../models/types";
 
 interface CharactersState {
   characters: Record<string, Character>;
+  sortKey: keyof Character | undefined;
+  sortDirection: TSortDirection;
+  loading: boolean;
+  error: string | null;
 }
 
 const initialState: CharactersState = {
   characters: {},
+  sortKey: undefined,
+  sortDirection: "asc",
+  loading: false,
+  error: null,
 };
 
 const charactersSlice = createSlice({
