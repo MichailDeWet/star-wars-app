@@ -9,7 +9,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Characters from "./pages/Characters";
 import Home from "./pages/Home";
 import Planets from "./pages/Planets";
-import { PagesPaths } from "./types/PagesPaths";
+import { PagesPaths } from "./models/enums";
 
 const RoutesContainer = styled.div`
   margin-top: ${({ theme }) => theme.headerHeight};

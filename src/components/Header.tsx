@@ -4,7 +4,7 @@ import { toggleTheme } from "../store/themeSlice";
 import { ReactComponent as Logo } from "../assets/star-wars-logo.svg";
 import { JSX } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { PagesPaths } from "../types/PagesPaths";
+import { PagesPaths } from "../models/enums";
 
 const HeaderContainer = styled.header`
   width: 100%;
