@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Character, SortPayload, TSortDirection } from "../models/types";
 import { sortItems } from "../utils/tableUtils";
+import { uniqBy } from "lodash-es";
 
 interface CharactersState {
   characters: Character[];
@@ -30,7 +31,10 @@ const characterSlice = createSlice({
       state: CharactersState,
       action: PayloadAction<Character[]>
     ) {
-      state.characters = [...state.characters, ...action.payload];
+      state.characters = uniqBy(
+        [...state.characters, ...action.payload],
+        "url"
+      );
       state.loading = false;
       state.error = null;
     },

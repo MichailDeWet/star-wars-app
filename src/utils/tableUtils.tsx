@@ -1,7 +1,7 @@
 import { ReactComponent as SortByAlpha } from "../assets/img/icons/sort-by-alpha.svg";
 import { ReactComponent as SortByNumber } from "../assets/img/icons/sort-by-number.svg";
 import { ReactComponent as SortByTime } from "../assets/img/icons/sort-by-time.svg";
-import { Film, TSortable, TSortDirection } from "../models/types";
+import { TSortable, TSortDirection } from "../models/types";
 
 export const getSortIcon = (sortableType?: TSortable) => {
   switch (sortableType) {

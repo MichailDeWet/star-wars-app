@@ -1,20 +1,16 @@
-import { JSX, useEffect, useMemo } from "react";
-import { NavLink, useParams } from "react-router-dom";
+import { JSX, useMemo } from "react";
+import { useParams } from "react-router-dom";
 import { convertEpisodeIdToRoman, getFilmById } from "../utils/filmUtils";
 import { useMovies } from "../shared/hooks/useMovies";
 import {
+  NavLink,
   PageContainer,
   PageTitle,
   StyledTable,
   StyledTH,
 } from "../shared/styles/styles";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../store/store";
-import { fetchCharacterData } from "../api/characters";
-import {
-  fetchCharactersSuccess,
-  sortCharacters,
-} from "../store/charactersSlice";
+import { useDispatch } from "react-redux";
+import { sortCharacters } from "../store/charactersSlice";
 import {
   dateConstructor,
   getSortDirection,
@@ -25,9 +21,12 @@ import styled from "styled-components";
 import { useObserveElement } from "../shared/hooks/useObserveElement";
 import { Character, SortPayload, TableHeadings } from "../models/types";
 import { ReactComponent as SortDirection } from "../assets/img/icons/sort-direction.svg";
+import { PagesPaths } from "../models/enums";
+import { extractNumberFromUrl } from "../utils/characterUtils";
+import { useCharacters } from "../shared/hooks/useCharacters";
 
-const DetailContainer = styled.div`
-  width: 350px;
+export const DetailContainer = styled.div<{ fullWidth?: boolean }>`
+  width: ${({ fullWidth }) => (fullWidth ? "100%" : "350px")};
   padding: 20px;
   border: 4px solid ${({ theme }) => theme.headingColor};
   border-radius: 8px;
@@ -67,34 +66,28 @@ const MovieDetailsPage = (): JSX.Element => {
   }>();
 
   const { films } = useMovies();
-  const { characters, sortKey, sortDirection } = useSelector(
-    (state: RootState) => state.characters
-  );
-  const dispatch = useDispatch();
-
-  const { isInView, elementRef } = useObserveElement();
 
   const film = useMemo(
     () => getFilmById(films, episode_id),
     [films, episode_id]
   );
 
-  useEffect(() => {
-    if (isInView && film) {
-      const missingCharacterUrls = film.characters.filter(
-        (url) => !characters.some((character) => character.url === url)
-      );
+  const { isInView, elementRef } = useObserveElement();
+  const { characters, sortDirection, sortKey } = useCharacters({
+    isInView,
+    film,
+  });
 
-      if (missingCharacterUrls.length > 0) {
-        fetchCharacterData(missingCharacterUrls).then((data) => {
-          dispatch(fetchCharactersSuccess(data));
-        });
-      }
-    }
-  }, [isInView, characters, film?.characters]);
+  const dispatch = useDispatch();
 
   const handleSort = ({ key, sortableType }: SortPayload<Character>) => {
     dispatch(sortCharacters({ key, sortableType }));
+  };
+
+  const createNavLink = (url: string, name: string) => {
+    return `${PagesPaths.CHARACTERS}/${extractNumberFromUrl(
+      url
+    )}/star-wars-character-${name.toLowerCase().replace(/ /g, "-")}`;
   };
 
   if (!film) {
@@ -159,9 +152,9 @@ const MovieDetailsPage = (): JSX.Element => {
                   <tr key={url}>
                     <td>{birth_year}</td>
                     <td>
-                      {/* <NavLink isTableLink to={createNavLink(episode_id, title)}> */}
-                      {name}
-                      {/* </NavLink> */}
+                      <NavLink isTableLink to={createNavLink(url, name)}>
+                        {name}
+                      </NavLink>
                     </td>
                     <td>{gender}</td>
                   </tr>

@@ -6,10 +6,10 @@ import { GlobalStyles } from "./theme/globalStyles";
 import { JSX } from "react";
 import Header from "./components/Header";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Characters from "./pages/Characters";
 import Home from "./pages/Home";
 import { PagesPaths } from "./models/enums";
 import MovieDetails from "./pages/MovieDetails";
+import Character from "./pages/Character";
 
 const RoutesContainer = styled.div`
   margin-top: ${({ theme }) => theme.headerHeight};
@@ -27,7 +27,10 @@ const App = (): JSX.Element => {
           <Routes>
             <Route path={PagesPaths.HOME} element={<Home />} />
             <Route path={PagesPaths.WILDCARD} element={<Home />} />
-            <Route path={PagesPaths.CHARACTERS} element={<Characters />} />
+            <Route
+              path={`${PagesPaths.CHARACTERS}/:character_id/:trail`}
+              element={<Character />}
+            />
             <Route
               path={`${PagesPaths.MOVIE}/:episode_id/:trail`}
               element={<MovieDetails />}
