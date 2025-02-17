@@ -9,7 +9,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import { PagesPaths } from "./models/enums";
 import MovieDetails from "./pages/MovieDetails";
-import Planet from "./pages/Planet";
+import PlanetDetails from "./pages/PlanetDetails";
 import CharacterDetails from "./pages/CharacterDetails";
 
 const RoutesContainer = styled.div`
@@ -34,7 +34,7 @@ const App = (): JSX.Element => {
             />
             <Route
               path={`${PagesPaths.PLANET}/:planet_id/:trail`}
-              element={<Planet />}
+              element={<PlanetDetails />}
             />
             <Route
               path={`${PagesPaths.MOVIE}/:episode_id/:trail`}

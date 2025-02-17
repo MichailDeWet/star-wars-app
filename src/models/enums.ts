@@ -13,13 +13,21 @@ export enum DataEndpoints {
 }
 
 export enum Icons {
-  PROFILE = "profile-icon",
   CALENDAR = "calendar-icon",
-  PLANET = "planet-icon",
-  HEIGHT = "height-icon",
-  MASS = "mass-icon",
-  HAIR = "hair-icon",
-  HAND = "hand-icon",
+  COMPASS = "compass-icon",
   EYE = "eye-icon",
   GENDER = "gender-icon",
+  GRAVITY = "gravity-icon",
+  HAIR = "hair-icon",
+  HAND = "hand-icon",
+  HEIGHT = "height-icon",
+  ORBIT = "orbit-icon",
+  MASS = "mass-icon",
+  PLANET = "planet-icon",
+  POPULATION = "population-icon",
+  PROFILE = "profile-icon",
+  ROTATION = "rotation-icon",
+  TERRAIN = "terrain-icon",
+  THERMOMETER = "thermometer-icon",
+  WATER = "water-icon",
 }

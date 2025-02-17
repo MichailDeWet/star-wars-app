@@ -124,14 +124,13 @@ export const NavLink = styled(Link).withConfig({
 
 export const CardContainer = styled.div`
   width: 100%;
-  height: 275px;
   padding: 20px;
   border: 4px solid ${({ theme }) => theme.borderColor};
   border-radius: 20px;
 
-  .profile-icon {
+  .main-icon {
     float: left;
-    height: 100%;
+    max-height: 200px;
     margin-right: 2rem;
 
     path {
@@ -139,7 +138,16 @@ export const CardContainer = styled.div`
     }
   }
 
-  svg:not(.profile-icon) {
+  .gravity-icon,
+  .rotation-icon {
+    zoom: 1.5;
+  }
+
+  .orbit-icon {
+    zoom: 1.2;
+  }
+
+  svg:not(.main-icon) {
     height: 13px;
   }
 
@@ -149,15 +157,24 @@ export const CardContainer = styled.div`
   .hand-icon,
   .gender-icon,
   .height-icon,
+  .orbit-icon,
+  .compass-icon,
+  .thermometer-icon,
+  .terrain-icon,
+  .water-icon,
+  .population-icon,
   .eye-icon {
     path {
       fill: ${({ theme }) => theme.detailedIconColor};
     }
   }
 
+  .gravity-icon,
+  .rotation-icon,
   .calendar-icon {
-    path {
-      stroke: ${({ theme }) => theme.detailedIconColor};
+    path,
+    circle {
+      stroke: ${({ theme }) => theme.detailedIconColor} !important;
     }
   }
 `;
@@ -166,11 +183,15 @@ export const StatContainer = styled.div`
   display: flex;
   gap: 45px;
   flex-flow: wrap;
+
+  > div {
+    flex: 1 1 0;
+  }
 `;
 
 export const ValueContainer = styled.div`
   margin-top: 5px;
-  justify-self: anchor-center;
+  justify-self: left;
   text-transform: capitalize;
   font-weight: bold;
 `;
@@ -179,6 +200,7 @@ export const LabelContainer = styled.div`
   display: flex;
   align-items: anchor-center;
   gap: 8px;
+  white-space: nowrap;
 
   p {
     color: ${({ theme }) => theme.headingColor};

@@ -5,11 +5,19 @@ import { ReactComponent as ProfileIcon } from "../assets/img/icons/profile-circl
 import { ReactComponent as CalendarIcon } from "../assets/img/icons/calendar.svg";
 import { ReactComponent as PlanetIcon } from "../assets/img/icons/planet.svg";
 import { ReactComponent as HeightIcon } from "../assets/img/icons/tape-measure.svg";
-import { ReactComponent as MassIcon } from "../assets/img/icons/weight.svg";
+import { ReactComponent as MassIcon } from "../assets/img/icons/mass.svg";
 import { ReactComponent as HairIcon } from "../assets/img/icons/hair.svg";
 import { ReactComponent as HandIcon } from "../assets/img/icons/hand.svg";
 import { ReactComponent as EyeIcon } from "../assets/img/icons/eye.svg";
 import { ReactComponent as GenderIcon } from "../assets/img/icons/gender.svg";
+import { ReactComponent as RotationIcon } from "../assets/img/icons/rotation.svg";
+import { ReactComponent as OrbitIcon } from "../assets/img/icons/orbit.svg";
+import { ReactComponent as CompassIcon } from "../assets/img/icons/compass.svg";
+import { ReactComponent as GravityIcon } from "../assets/img/icons/gravity.svg";
+import { ReactComponent as WaterIcon } from "../assets/img/icons/water.svg";
+import { ReactComponent as PopulationIcon } from "../assets/img/icons/population.svg";
+import { ReactComponent as TerrainIcon } from "../assets/img/icons/terrain.svg";
+import { ReactComponent as ThermometerIcon } from "../assets/img/icons/thermometer.svg";
 import { TSortable, TSortDirection } from "../models/types";
 import { Icons } from "../models/enums";
 
@@ -26,26 +34,44 @@ export const getSortIcon = (sortableType?: TSortable) => {
   }
 };
 
-export const getIcon = (key: string) => {
+export const getIcon = (key: string, isMainIcon?: boolean) => {
+  const className = `${key}${isMainIcon ? " main-icon" : ""}`;
+
   switch (key) {
-    case Icons.PROFILE:
-      return <ProfileIcon className={key} />;
     case Icons.CALENDAR:
-      return <CalendarIcon className={key} />;
-    case Icons.PLANET:
-      return <PlanetIcon className={key} />;
-    case Icons.HEIGHT:
-      return <HeightIcon className={key} />;
-    case Icons.MASS:
-      return <MassIcon className={key} />;
-    case Icons.HAIR:
-      return <HairIcon className={key} />;
-    case Icons.HAND:
-      return <HandIcon className={key} />;
+      return <CalendarIcon className={className} />;
+    case Icons.COMPASS:
+      return <CompassIcon className={className} />;
     case Icons.EYE:
-      return <EyeIcon className={key} />;
+      return <EyeIcon className={className} />;
     case Icons.GENDER:
-      return <GenderIcon className={key} />;
+      return <GenderIcon className={className} />;
+    case Icons.GRAVITY:
+      return <GravityIcon className={className} />;
+    case Icons.HAIR:
+      return <HairIcon className={className} />;
+    case Icons.HAND:
+      return <HandIcon className={className} />;
+    case Icons.HEIGHT:
+      return <HeightIcon className={className} />;
+    case Icons.MASS:
+      return <MassIcon className={className} />;
+    case Icons.ORBIT:
+      return <OrbitIcon className={className} />;
+    case Icons.PLANET:
+      return <PlanetIcon className={className} />;
+    case Icons.POPULATION:
+      return <PopulationIcon className={className} />;
+    case Icons.PROFILE:
+      return <ProfileIcon className={className} />;
+    case Icons.ROTATION:
+      return <RotationIcon className={className} />;
+    case Icons.TERRAIN:
+      return <TerrainIcon className={className} />;
+    case Icons.THERMOMETER:
+      return <ThermometerIcon className={className} />;
+    case Icons.WATER:
+      return <WaterIcon className={className} />;
     default:
       return null;
   }

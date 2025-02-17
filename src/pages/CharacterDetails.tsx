@@ -13,7 +13,6 @@ import { usePlanets } from "../shared/hooks/usePlanets";
 import { CardDetails, Character, Planet } from "../models/types";
 import { extractNumberFromUrl, getItemById } from "../utils/entityUtils";
 import { Icons, PagesPaths } from "../models/enums";
-import { ReactComponent as ProfileIcon } from "../assets/img/icons/profile-circle.svg";
 import { getIcon } from "../utils/tableUtils";
 
 const cardDetails: CardDetails<Character>[] = [
@@ -44,7 +43,11 @@ const CharacterDetails = (): JSX.Element => {
   const world = getItemById<Planet>(planets, homeWorldId)?.name;
 
   const createNavLink = () => {
-    return `${PagesPaths.PLANET}/${homeWorldId}/star-wars-planet-${name
+    if (!world) {
+      return PagesPaths.HOME;
+    }
+
+    return `${PagesPaths.PLANET}/${homeWorldId}/star-wars-planet-${world
       .toLowerCase()
       .replace(/ /g, "-")}`;
   };
@@ -52,7 +55,7 @@ const CharacterDetails = (): JSX.Element => {
   return (
     <PageContainer>
       <CardContainer>
-        <ProfileIcon className="profile-icon" />
+        {getIcon(Icons.PROFILE, true)}
         <PageTitle>{name}</PageTitle>
         <StatContainer>
           <div key="home_world">
