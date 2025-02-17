@@ -1,18 +1,13 @@
 import { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchFilms } from "../../api/films";
-import {
-  fetchFilmsStart,
-  fetchFilmsSuccess,
-  fetchFilmsFailure,
-} from "../../store/filmsSlice";
 import { RootState } from "../../store/store";
-import { fetchCharacterData } from "../../api/characters";
+import { fetchEntityData } from "../../api/entity";
 import { IUseCharacters } from "../../models/interfaces";
 import { fetchCharactersSuccess } from "../../store/charactersSlice";
 import { useParams } from "react-router-dom";
-import { getCharacterById } from "../../utils/characterUtils";
+import { getItemById } from "../../utils/entityUtils";
 import { DataEndpoints } from "../../models/enums";
+import { Character } from "../../models/types";
 
 const apiUrl = process.env.REACT_APP_SWAPI_URL;
 
@@ -31,7 +26,7 @@ export const useCharacters = ({
   );
 
   const currentCharacter = useMemo(
-    () => getCharacterById(characters, character_id),
+    () => getItemById<Character>(characters, character_id),
     [characters, character_id]
   );
 
@@ -52,7 +47,7 @@ export const useCharacters = ({
       }
 
       if (missingCharacterUrls.length > 0) {
-        fetchCharacterData(missingCharacterUrls).then((data) => {
+        fetchEntityData<Character>(missingCharacterUrls).then((data) => {
           dispatch(fetchCharactersSuccess(data));
         });
       }

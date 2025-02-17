@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { Film } from "./types";
+import { Character, Film } from "./types";
 
 export interface IHeroPage {
   children?: ReactNode;
@@ -11,4 +11,8 @@ export interface IHeroPage {
 export interface IUseCharacters {
   isInView?: boolean;
   film?: Film;
+}
+
+export interface IUsePlanets {
+  character?: Character;
 }

@@ -23,6 +23,21 @@ export type Character = {
   url: string;
 };
 
+export type Planet = {
+  name: string;
+  rotation_period: string;
+  orbital_period: string;
+  diameter: string;
+  climate: string;
+  gravity: string;
+  terrain: string;
+  surface_water: string;
+  population: string;
+  residents: string[];
+  films: string[];
+  url: string;
+};
+
 export type TSortable = "alpha" | "number" | "time";
 export type TSortDirection = "asc" | "desc";
 

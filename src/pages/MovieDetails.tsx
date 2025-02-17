@@ -1,6 +1,10 @@
 import { JSX, useMemo } from "react";
 import { useParams } from "react-router-dom";
-import { convertEpisodeIdToRoman, getFilmById } from "../utils/filmUtils";
+import {
+  convertEpisodeIdToRoman,
+  getFilmById,
+  extractNumberFromUrl,
+} from "../utils/entityUtils";
 import { useMovies } from "../shared/hooks/useMovies";
 import {
   NavLink,
@@ -22,7 +26,6 @@ import { useObserveElement } from "../shared/hooks/useObserveElement";
 import { Character, SortPayload, TableHeadings } from "../models/types";
 import { ReactComponent as SortDirection } from "../assets/img/icons/sort-direction.svg";
 import { PagesPaths } from "../models/enums";
-import { extractNumberFromUrl } from "../utils/characterUtils";
 import { useCharacters } from "../shared/hooks/useCharacters";
 
 export const DetailContainer = styled.div<{ fullWidth?: boolean }>`

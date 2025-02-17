@@ -1,25 +1,16 @@
-import { JSX } from "react";
+import { JSX, useMemo } from "react";
 import { useCharacters } from "../shared/hooks/useCharacters";
-import { PageContainer, PageTitle } from "../shared/styles/styles";
+import { NavLink, PageContainer, PageTitle } from "../shared/styles/styles";
 import { DetailContainer } from "./MovieDetails";
-
-export type Character = {
-  name: string;
-  height: string;
-  mass: string;
-  hair_color: string;
-  skin_color: string;
-  eye_color: string;
-  birth_year: string;
-  gender: string;
-  homeworld: string;
-  films: string[];
-  url: string;
-};
+import { usePlanets } from "../shared/hooks/usePlanets";
+import { Planet } from "../models/types";
+import { extractNumberFromUrl, getItemById } from "../utils/entityUtils";
+import { PagesPaths } from "../models/enums";
 
 const Character = (): JSX.Element => {
   const { characters, currentCharacter, sortDirection, sortKey } =
     useCharacters({});
+  const { planets } = usePlanets({ character: currentCharacter });
 
   if (!currentCharacter) {
     return <>No Character Found</>;
@@ -38,18 +29,31 @@ const Character = (): JSX.Element => {
     films,
   } = currentCharacter;
 
+  const homeWorldId = extractNumberFromUrl(homeworld)?.toString();
+
+  const world = getItemById<Planet>(planets, homeWorldId)?.name;
+
+  const createNavLink = () => {
+    return `${PagesPaths.PLANET}/${homeWorldId}/star-wars-planet-${name
+      .toLowerCase()
+      .replace(/ /g, "-")}`;
+  };
+
   return (
     <PageContainer>
       <DetailContainer fullWidth>
         <PageTitle>Character Card: {name}</PageTitle>
         <p>Born In: {birth_year}</p>
+        <p>
+          Home World:
+          <NavLink to={createNavLink()}>{world}</NavLink>
+        </p>
         <p>Height: {height}</p>
         <p>Mass: {mass}</p>
         <p>Hair Color: {hair_color}</p>
         <p>Skin Color: {skin_color}</p>
         <p>Eye Color: {eye_color}</p>
         <p>Gender: {gender}</p>
-        {/* <p>Height: {homeworld}</p> */}
       </DetailContainer>
     </PageContainer>
   );

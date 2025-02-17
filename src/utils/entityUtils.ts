@@ -1,4 +1,4 @@
-import { Film } from "../models/types";
+import { Character, Film } from "../models/types";
 
 export const convertEpisodeIdToRoman = (episodeId: number): string => {
   switch (episodeId) {
@@ -25,4 +25,25 @@ export const getFilmById = (films: Film[], id?: string): Film | undefined => {
   }
 
   return films.find(({ episode_id }) => episode_id === Number(id));
+};
+
+export const extractNumberFromUrl = (url: string): number | undefined => {
+  const match = RegExp(/\/(\d+)\/?$/).exec(url);
+
+  if (match) {
+    return parseInt(match[1], 10);
+  }
+
+  return undefined;
+};
+
+export const getItemById = <T extends { url: string }>(
+  items: T[],
+  id?: string
+): T | undefined => {
+  if (!items || !id) {
+    return undefined;
+  }
+
+  return items.find(({ url }) => url.endsWith(`/${id}/`));
 };

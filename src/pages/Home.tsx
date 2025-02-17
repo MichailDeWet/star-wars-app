@@ -3,7 +3,6 @@ import { Hero } from "../components/Hero";
 import { useDispatch } from "react-redux";
 import { Film, SortPayload, TableHeadings } from "../models/types";
 import { sortFilms } from "../store/filmsSlice";
-import { convertEpisodeIdToRoman } from "../utils/filmUtils";
 import {
   NavLink,
   PageContainer,
@@ -15,6 +14,7 @@ import { getSortDirection, getSortIcon } from "../utils/tableUtils";
 import { ReactComponent as SortDirection } from "../assets/img/icons/sort-direction.svg";
 import { PagesPaths } from "../models/enums";
 import { useMovies } from "../shared/hooks/useMovies";
+import { convertEpisodeIdToRoman } from "../utils/entityUtils";
 
 const headings: TableHeadings<Film>[] = [
   {
@@ -45,7 +45,7 @@ const Home = (): JSX.Element => {
 
   return (
     <>
-      <Hero />
+      {/* <Hero /> */}
 
       <PageContainer>
         <PageTitle>Movies</PageTitle>
