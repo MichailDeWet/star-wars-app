@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Film, TSortDirection } from "../models/types";
+import { Film, SortPayload, TSortDirection } from "../models/types";
+import { sortItems } from "../utils/tableUtils";
 
 interface FilmState {
   films: Film[];
@@ -34,39 +35,19 @@ const filmSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
-    sortFilms(state, action: PayloadAction<keyof Film>) {
-      const key = action.payload;
+    sortFilms(state: FilmState, action: PayloadAction<SortPayload<Film>>) {
+      const { key, sortableType } = action.payload;
       const sortDirection =
         state.sortKey === key && state.sortDirection === "asc" ? "desc" : "asc";
 
       state.sortDirection = sortDirection;
       state.sortKey = key;
-      state.films = [...state.films].sort((a, b) => {
-        if (key === "release_date") {
-          const dateA = new Date(a.release_date).getTime();
-          const dateB = new Date(b.release_date).getTime();
-
-          if (sortDirection === "asc") {
-            return dateA - dateB;
-          }
-
-          return dateB - dateA;
-        }
-
-        if (key === "episode_id") {
-          if (sortDirection === "asc") {
-            return a.episode_id - b.episode_id;
-          }
-
-          return b.episode_id - a.episode_id;
-        }
-
-        if (sortDirection === "asc") {
-          return a.title.localeCompare(b.title);
-        }
-
-        return b.title.localeCompare(a.title);
-      });
+      state.films = sortItems(
+        [...state.films],
+        key,
+        sortDirection,
+        sortableType
+      );
     },
   },
 });

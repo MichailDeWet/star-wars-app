@@ -1,7 +1,7 @@
 import { JSX } from "react";
 import { Hero } from "../components/Hero";
 import { useDispatch } from "react-redux";
-import { Film, TableHeadings } from "../models/types";
+import { Film, SortPayload, TableHeadings } from "../models/types";
 import { sortFilms } from "../store/filmsSlice";
 import { convertEpisodeIdToRoman } from "../utils/filmUtils";
 import {
@@ -31,8 +31,8 @@ const Home = (): JSX.Element => {
   const dispatch = useDispatch();
   const { films, sortKey, sortDirection, loading, error } = useMovies();
 
-  const handleSort = (key: keyof Film) => {
-    dispatch(sortFilms(key));
+  const handleSort = ({ key, sortableType }: SortPayload<Film>) => {
+    dispatch(sortFilms({ key, sortableType }));
   };
 
   const createNavLink = (episodeId: number, title: string) => {
@@ -59,7 +59,7 @@ const Home = (): JSX.Element => {
                   key={key}
                   sortableType={sortableType}
                   sortDirection={getSortDirection(key, sortDirection, sortKey)}
-                  onClick={() => handleSort(key)}
+                  onClick={() => handleSort({ key, sortableType })}
                   width={width}
                 >
                   {label}

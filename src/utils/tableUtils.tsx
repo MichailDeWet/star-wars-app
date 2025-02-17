@@ -37,3 +37,80 @@ export function getSortDirection<T>(
 
   return undefined;
 }
+
+const starWarsTimelineSort = (
+  a: string,
+  b: string,
+  sortDirection: TSortDirection
+) => {
+  if (a === "unknown" && b === "unknown") return 0;
+  if (a === "unknown") return 1;
+  if (b === "unknown") return -1;
+
+  // Regular expression to match dates in the "BBY" and "ABY" format
+  const matchA = /^(\d+(\.\d+)?)(BBY|ABY)$/.exec(a);
+  const matchB = /^(\d+(\.\d+)?)(BBY|ABY)$/.exec(b);
+
+  if (!matchA || !matchB) {
+    return 0;
+  }
+
+  let numberPartA = parseFloat(matchA[1]);
+  let numberPartB = parseFloat(matchB[1]);
+
+  if (matchA[3] === "BBY") numberPartA = -numberPartA;
+  if (matchB[3] === "BBY") numberPartB = -numberPartB;
+
+  if (sortDirection === "asc") {
+    return numberPartA - numberPartB;
+  }
+
+  return numberPartB - numberPartA;
+};
+
+export function sortItems<T>(
+  items: T[],
+  key: keyof T,
+  sortDirection: TSortDirection,
+  sortableType: TSortable
+): T[] {
+  return [...items].sort((a, b) => {
+    if (sortableType === "time") {
+      // Special Case for BBY dates
+      if (key === "birth_year") {
+        return starWarsTimelineSort(
+          a[key] as string,
+          b[key] as string,
+          sortDirection
+        );
+      }
+
+      const dateA = new Date(a[key] as string).getTime();
+      const dateB = new Date(b[key] as string).getTime();
+
+      if (sortDirection === "asc") {
+        return dateA - dateB;
+      }
+
+      return dateB - dateA;
+    }
+
+    if (sortableType === "number") {
+      if (sortDirection === "asc") {
+        return (a[key] as number) - (b[key] as number);
+      }
+
+      return (b[key] as number) - (a[key] as number);
+    }
+
+    if (sortableType === "alpha") {
+      if (sortDirection === "asc") {
+        return (a[key] as string).localeCompare(b[key] as string);
+      }
+
+      return (b[key] as string).localeCompare(a[key] as string);
+    }
+
+    return 0;
+  });
+}

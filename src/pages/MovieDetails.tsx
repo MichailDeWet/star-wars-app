@@ -11,7 +11,10 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import { fetchCharacterData } from "../api/characters";
-import { setCharacters } from "../store/charactersSlice";
+import {
+  fetchCharactersSuccess,
+  sortCharacters,
+} from "../store/charactersSlice";
 import {
   dateConstructor,
   getSortDirection,
@@ -20,7 +23,7 @@ import {
 import { Hero } from "../components/Hero";
 import styled from "styled-components";
 import { useObserveElement } from "../shared/hooks/useObserveElement";
-import { Character, TableHeadings } from "../models/types";
+import { Character, SortPayload, TableHeadings } from "../models/types";
 import { ReactComponent as SortDirection } from "../assets/img/icons/sort-direction.svg";
 
 const DetailContainer = styled.div`
@@ -79,37 +82,20 @@ const MovieDetailsPage = (): JSX.Element => {
   useEffect(() => {
     if (isInView && film) {
       const missingCharacterUrls = film.characters.filter(
-        (url) => !Object.keys(characters).includes(url)
+        (url) => !characters.some((character) => character.url === url)
       );
 
       if (missingCharacterUrls.length > 0) {
         fetchCharacterData(missingCharacterUrls).then((data) => {
-          dispatch(setCharacters(data));
+          dispatch(fetchCharactersSuccess(data));
         });
       }
     }
   }, [isInView, characters, film?.characters]);
 
-  const TableRows = useMemo(
-    () =>
-      Object.keys(characters).length > 0 &&
-      film?.characters.map((url) => {
-        const { name, birth_year, gender } = characters[url];
-
-        return (
-          <tr key={url}>
-            <td>{birth_year}</td>
-            <td>
-              {/* <NavLink isTableLink to={createNavLink(episode_id, title)}> */}
-              {name}
-              {/* </NavLink> */}
-            </td>
-            <td>{gender}</td>
-          </tr>
-        );
-      }),
-    [characters, film?.characters]
-  );
+  const handleSort = ({ key, sortableType }: SortPayload<Character>) => {
+    dispatch(sortCharacters({ key, sortableType }));
+  };
 
   if (!film) {
     return <div>Movie Not Found</div>;
@@ -140,7 +126,7 @@ const MovieDetailsPage = (): JSX.Element => {
 
       <PageContainer>
         <PageTitle ref={elementRef}>Cast</PageTitle>
-        {Object.keys(characters).length > 0 && (
+        {characters.length > 0 && (
           <StyledTable>
             <thead>
               <tr>
@@ -153,7 +139,7 @@ const MovieDetailsPage = (): JSX.Element => {
                       sortDirection,
                       sortKey
                     )}
-                    // onClick={() => handleSort(key)}
+                    onClick={() => handleSort({ key, sortableType })}
                     width={width}
                   >
                     {label}
@@ -167,7 +153,21 @@ const MovieDetailsPage = (): JSX.Element => {
                 ))}
               </tr>
             </thead>
-            <tbody>{TableRows}</tbody>
+            <tbody>
+              {characters.map(({ url, name, birth_year, gender }) => {
+                return (
+                  <tr key={url}>
+                    <td>{birth_year}</td>
+                    <td>
+                      {/* <NavLink isTableLink to={createNavLink(episode_id, title)}> */}
+                      {name}
+                      {/* </NavLink> */}
+                    </td>
+                    <td>{gender}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
           </StyledTable>
         )}
       </PageContainer>

@@ -30,5 +30,10 @@ export type TableHeadings<T> = {
   key: keyof T;
   label: string;
   width: string;
-  sortableType?: TSortable;
+  sortableType: TSortable;
+};
+
+export type SortPayload<T> = {
+  key: keyof T;
+  sortableType: TSortable;
 };

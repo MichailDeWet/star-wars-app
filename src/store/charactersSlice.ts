@@ -1,8 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Character, TSortDirection } from "../models/types";
+import { Character, SortPayload, TSortDirection } from "../models/types";
+import { sortItems } from "../utils/tableUtils";
 
 interface CharactersState {
-  characters: Record<string, Character>;
+  characters: Character[];
   sortKey: keyof Character | undefined;
   sortDirection: TSortDirection;
   loading: boolean;
@@ -10,23 +11,61 @@ interface CharactersState {
 }
 
 const initialState: CharactersState = {
-  characters: {},
+  characters: [],
   sortKey: undefined,
   sortDirection: "asc",
   loading: false,
   error: null,
 };
 
-const charactersSlice = createSlice({
+const characterSlice = createSlice({
   name: "characters",
   initialState,
   reducers: {
-    setCharacters(state, action: PayloadAction<Record<string, Character>>) {
-      state.characters = { ...state.characters, ...action.payload };
+    fetchCharactersStart(state: CharactersState) {
+      state.loading = true;
+      state.error = null;
+    },
+    fetchCharactersSuccess(
+      state: CharactersState,
+      action: PayloadAction<Character[]>
+    ) {
+      state.characters = [...state.characters, ...action.payload];
+      state.loading = false;
+      state.error = null;
+    },
+    fetchCharactersFailure(
+      state: CharactersState,
+      action: PayloadAction<string>
+    ) {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    sortCharacters(
+      state: CharactersState,
+      action: PayloadAction<SortPayload<Character>>
+    ) {
+      const { key, sortableType } = action.payload;
+      const sortDirection =
+        state.sortKey === key && state.sortDirection === "asc" ? "desc" : "asc";
+
+      state.sortDirection = sortDirection;
+      state.sortKey = key;
+      state.characters = sortItems(
+        [...state.characters],
+        key,
+        sortDirection,
+        sortableType
+      );
     },
   },
 });
 
-export const { setCharacters } = charactersSlice.actions;
+export const {
+  fetchCharactersStart,
+  fetchCharactersSuccess,
+  fetchCharactersFailure,
+  sortCharacters,
+} = characterSlice.actions;
 
-export default charactersSlice.reducer;
+export default characterSlice.reducer;
