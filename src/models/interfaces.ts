@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { Character, Film } from "./types";
+import { Character } from "./types";
 
 export interface IHeroPage {
   children: ReactNode;
@@ -10,7 +10,7 @@ export interface IHeroPage {
 
 export interface IUseCharacters {
   isInView?: boolean;
-  film?: Film;
+  givenCharacters?: string[];
 }
 
 export interface IUsePlanets {
@@ -23,4 +23,5 @@ export interface IUseMovies {
 
 export interface IDropdown {
   films: string[];
+  residents?: string[];
 }

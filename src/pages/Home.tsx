@@ -12,7 +12,6 @@ import {
 } from "../shared/styles/styles";
 import { getSortDirection, getSortIcon } from "../utils/tableUtils";
 import { ReactComponent as SortDirection } from "../assets/img/icons/sort-direction.svg";
-import { PagesPaths } from "../models/enums";
 import { useMovies } from "../shared/hooks/useMovies";
 import { convertEpisodeIdToRoman } from "../utils/entityUtils";
 

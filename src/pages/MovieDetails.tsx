@@ -76,21 +76,15 @@ const MovieDetailsPage = (): JSX.Element => {
   );
 
   const { isInView, elementRef } = useObserveElement();
-  const { characters, sortDirection, sortKey } = useCharacters({
+  const { characters, sortDirection, sortKey, createNavLink } = useCharacters({
     isInView,
-    film,
+    givenCharacters: film?.characters,
   });
 
   const dispatch = useDispatch();
 
   const handleSort = ({ key, sortableType }: SortPayload<Character>) => {
     dispatch(sortCharacters({ key, sortableType }));
-  };
-
-  const createNavLink = (url: string, name: string) => {
-    return `${PagesPaths.CHARACTERS}/${extractNumberFromUrl(
-      url
-    )}/star-wars-character-${name.toLowerCase().replace(/ /g, "-")}`;
   };
 
   if (!film) {

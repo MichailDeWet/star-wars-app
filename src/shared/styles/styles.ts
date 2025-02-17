@@ -1,11 +1,6 @@
 import styled from "styled-components";
 import { TSortable, TSortDirection } from "../../models/types";
 import { Link } from "react-router-dom";
-import { hover } from "@testing-library/user-event/dist/hover";
-import { profile } from "console";
-import { size } from "lodash-es";
-import path from "path";
-import { text } from "stream/consumers";
 
 export const PageTitle = styled.h1`
   margin: 1rem 0;
@@ -134,10 +129,6 @@ export const CardContainer = styled.div`
     float: left;
     max-height: 200px;
     margin-right: 2rem;
-
-    path {
-      fill: ${({ theme }) => theme.detailedIconColor};
-    }
   }
 
   .gravity-icon,
@@ -166,6 +157,7 @@ export const CardContainer = styled.div`
   .water-icon,
   .population-icon,
   .movie-icon,
+  .profile-icon,
   .eye-icon {
     path {
       fill: ${({ theme }) => theme.detailedIconColor};

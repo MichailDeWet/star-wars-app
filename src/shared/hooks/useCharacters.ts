@@ -5,14 +5,14 @@ import { fetchEntityData } from "../../api/entity";
 import { IUseCharacters } from "../../models/interfaces";
 import { fetchCharactersSuccess } from "../../store/charactersSlice";
 import { useParams } from "react-router-dom";
-import { getItemById } from "../../utils/entityUtils";
-import { DataEndpoints } from "../../models/enums";
+import { extractNumberFromUrl, getItemById } from "../../utils/entityUtils";
+import { DataEndpoints, PagesPaths } from "../../models/enums";
 import { Character } from "../../models/types";
 
 const apiUrl = process.env.REACT_APP_SWAPI_URL;
 
 export const useCharacters = ({
-  film = undefined,
+  givenCharacters = undefined,
   isInView = undefined,
 }: IUseCharacters) => {
   const dispatch = useDispatch();
@@ -30,6 +30,12 @@ export const useCharacters = ({
     [characters, character_id]
   );
 
+  const createNavLink = (url: string, name: string) => {
+    return `${PagesPaths.CHARACTERS}/${extractNumberFromUrl(
+      url
+    )}/star-wars-character-${name.toLowerCase().replace(/ /g, "-")}`;
+  };
+
   useEffect(() => {
     if (isInView || (isInView === undefined && character_id)) {
       let missingCharacterUrls: string[] = [];
@@ -40,8 +46,8 @@ export const useCharacters = ({
         ];
       }
 
-      if (film) {
-        missingCharacterUrls = film.characters.filter(
+      if (givenCharacters) {
+        missingCharacterUrls = givenCharacters.filter(
           (url) => !characters.some((character) => character.url === url)
         );
       }
@@ -52,7 +58,7 @@ export const useCharacters = ({
         });
       }
     }
-  }, [isInView, characters, film?.characters, character_id, currentCharacter]);
+  }, [isInView, characters, givenCharacters, character_id, currentCharacter]);
 
   return {
     characters,
@@ -61,5 +67,6 @@ export const useCharacters = ({
     sortDirection,
     loading,
     error,
+    createNavLink,
   };
 };

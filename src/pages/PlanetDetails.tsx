@@ -12,6 +12,8 @@ import { usePlanets } from "../shared/hooks/usePlanets";
 import { CardDetails, Planet } from "../models/types";
 import { Icons } from "../models/enums";
 import { getIcon } from "../utils/tableUtils";
+import { formatNumber } from "../utils/entityUtils";
+import Dropdown from "../components/DropDown";
 
 const cardDetails: CardDetails<Planet>[] = [
   {
@@ -26,7 +28,12 @@ const cardDetails: CardDetails<Planet>[] = [
     key: "orbital_period",
     unit: "d",
   },
-  { icon: getIcon(Icons.COMPASS), title: "Planet Diameter:", key: "diameter" },
+  {
+    icon: getIcon(Icons.COMPASS),
+    title: "Planet Diameter:",
+    key: "diameter",
+    unit: "km",
+  },
   { icon: getIcon(Icons.THERMOMETER), title: "Climate:", key: "climate" },
   {
     icon: getIcon(Icons.GRAVITY),
@@ -70,13 +77,17 @@ const PlanetDetails = (): JSX.Element => {
                 <p>{title}</p>
               </LabelContainer>
               <ValueContainer>
-                {currentPlanet[key]}
+                {key === "population"
+                  ? formatNumber(Number(currentPlanet[key]))
+                  : currentPlanet[key]}
                 {unit ?? ""}
               </ValueContainer>
             </div>
           ))}
         </StatContainer>
       </CardContainer>
+
+      <Dropdown films={films} residents={residents} />
     </PageContainer>
   );
 };

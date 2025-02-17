@@ -1,11 +1,5 @@
 import { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchFilms } from "../../api/films";
-import {
-  fetchFilmsStart,
-  fetchFilmsSuccess,
-  fetchFilmsFailure,
-} from "../../store/filmsSlice";
 import { RootState } from "../../store/store";
 import { fetchEntityData } from "../../api/entity";
 import { IUsePlanets } from "../../models/interfaces";

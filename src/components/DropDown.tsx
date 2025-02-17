@@ -10,19 +10,25 @@ import {
   ValueContainer,
 } from "../shared/styles/styles";
 import { useMovies } from "../shared/hooks/useMovies";
-import { extractNumberFromUrl, getFilmById } from "../utils/entityUtils";
-import { Film } from "../models/types";
+import {
+  extractNumberFromUrl,
+  getFilmById,
+  getItemById,
+} from "../utils/entityUtils";
+import { Character, Film } from "../models/types";
+import { useCharacters } from "../shared/hooks/useCharacters";
 
-const SecondaryCardContainer = styled(CardContainer)`
+const SecondaryCardContainer = styled(CardContainer)<{ offSet: number }>`
   width: 100%;
   padding: 20px;
   border: 4px solid ${({ theme }) => theme.borderColor};
   position: relative;
-  top: -43px;
+  top: calc(-43px * ${({ offSet }) => offSet});
   padding: 0;
   border-top: none;
   border-radius: 0 0 20px 20px;
   box-shadow: none;
+  z-index: ${({ offSet }) => 10 - offSet};
 `;
 
 const Spacer = styled.div`
@@ -62,42 +68,93 @@ const DropDownListItem = styled.div`
   }
 `;
 
-const Dropdown = ({ films }: IDropdown) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const { films: allFilms, createNavLink } = useMovies({ isOpen });
-  const toggleDropdown = () => {
-    setIsOpen((prev) => !prev);
+const Dropdown = ({ films, residents }: IDropdown) => {
+  const [isFilmsOpen, setIsFilmsOpen] = useState<boolean>(false);
+  const [isResidentsOpen, setIsResidentsOpen] = useState<boolean>(false);
+
+  const { films: allFilms, createNavLink: moviesNavLink } = useMovies({
+    isOpen: isFilmsOpen,
+  });
+  const { characters, createNavLink: charactersNavLink } = useCharacters({
+    isInView: isResidentsOpen,
+    givenCharacters: residents,
+  });
+
+  const toggleFilmsDropdown = () => {
+    setIsFilmsOpen((prev) => !prev);
+  };
+
+  const toggleResidentsDropdown = () => {
+    setIsResidentsOpen((prev) => !prev);
   };
 
   return (
-    <SecondaryCardContainer>
-      <Spacer />
-      <DropDownHeader isOpen={isOpen} onClick={toggleDropdown}>
-        Appears in:{getIcon(Icons.CARET)}
-      </DropDownHeader>
+    <>
+      <SecondaryCardContainer offSet={1}>
+        <Spacer />
+        <DropDownHeader isOpen={isFilmsOpen} onClick={toggleFilmsDropdown}>
+          Appears in:{getIcon(Icons.CARET)}
+        </DropDownHeader>
 
-      {isOpen &&
-        films.length > 0 &&
-        allFilms.length > 0 &&
-        films.map((film) => {
-          const id = extractNumberFromUrl(film);
+        {isFilmsOpen &&
+          films.length > 0 &&
+          allFilms.length > 0 &&
+          films.map((film) => {
+            const id = extractNumberFromUrl(film);
 
-          if (id === undefined) {
-            return null;
-          }
+            if (id === undefined) {
+              return null;
+            }
 
-          const { title } = getFilmById(allFilms, id.toString()) as Film;
+            const { title } = getFilmById(allFilms, id.toString()) as Film;
 
-          return (
-            <DropDownListItem key={title}>
-              {getIcon(Icons.MOVIE)}
-              <NavLink isTableLink to={createNavLink(id, title)}>
-                {title}
-              </NavLink>
-            </DropDownListItem>
-          );
-        })}
-    </SecondaryCardContainer>
+            return (
+              <DropDownListItem key={title}>
+                {getIcon(Icons.MOVIE)}
+                <NavLink isTableLink to={moviesNavLink(id, title)}>
+                  {title}
+                </NavLink>
+              </DropDownListItem>
+            );
+          })}
+      </SecondaryCardContainer>
+
+      {residents && (
+        <SecondaryCardContainer offSet={2}>
+          <Spacer />
+          <DropDownHeader
+            isOpen={isResidentsOpen}
+            onClick={toggleResidentsDropdown}
+          >
+            Residents:{getIcon(Icons.CARET)}
+          </DropDownHeader>
+
+          {isResidentsOpen &&
+            characters.length > 0 &&
+            residents.map((resident) => {
+              const id = extractNumberFromUrl(resident);
+
+              if (id === undefined) {
+                return null;
+              }
+
+              const { name } = getItemById<Character>(
+                characters,
+                id.toString()
+              ) as Character;
+
+              return (
+                <DropDownListItem key={name}>
+                  {getIcon(Icons.PROFILE)}
+                  <NavLink isTableLink to={charactersNavLink(resident, name)}>
+                    {name}
+                  </NavLink>
+                </DropDownListItem>
+              );
+            })}
+        </SecondaryCardContainer>
+      )}
+    </>
   );
 };
 
