@@ -11,6 +11,7 @@ import { PagesPaths } from "./models/enums";
 import MovieDetails from "./pages/MovieDetails";
 import PlanetDetails from "./pages/PlanetDetails";
 import CharacterDetails from "./pages/CharacterDetails";
+import BackButton from "./components/BackButton";
 
 const RoutesContainer = styled.div`
   margin-top: ${({ theme }) => theme.headerHeight};
@@ -25,6 +26,7 @@ const App = (): JSX.Element => {
         <GlobalStyles />
         <Header />
         <RoutesContainer>
+          <BackButton />
           <Routes>
             <Route path={PagesPaths.HOME} element={<Home />} />
             <Route path={PagesPaths.WILDCARD} element={<Home />} />

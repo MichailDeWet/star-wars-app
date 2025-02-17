@@ -21,6 +21,8 @@ const sharedProps: DefaultTheme = {
 
 export const lightTheme: DefaultTheme = {
   ...sharedProps,
+  backButton: `${blue}60`,
+  backButtonHover: blue,
   background: white,
   borderColor: blue,
   color: black,
@@ -40,6 +42,8 @@ export const lightTheme: DefaultTheme = {
 
 export const darkTheme: DefaultTheme = {
   ...sharedProps,
+  backButton: `${yellow}60`,
+  backButtonHover: yellow,
   background: black,
   borderColor: yellow,
   color: white,
