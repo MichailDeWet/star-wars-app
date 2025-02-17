@@ -28,8 +28,8 @@ import { ReactComponent as SortDirection } from "../assets/img/icons/sort-direct
 import { PagesPaths } from "../models/enums";
 import { useCharacters } from "../shared/hooks/useCharacters";
 
-export const DetailContainer = styled.div<{ fullWidth?: boolean }>`
-  width: ${({ fullWidth }) => (fullWidth ? "100%" : "350px")};
+const DetailContainer = styled.div`
+  width: 350px;
   padding: 20px;
   border: 4px solid ${({ theme }) => theme.headingColor};
   border-radius: 8px;

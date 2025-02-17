@@ -9,8 +9,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import { PagesPaths } from "./models/enums";
 import MovieDetails from "./pages/MovieDetails";
-import Character from "./pages/Character";
 import Planet from "./pages/Planet";
+import CharacterDetails from "./pages/CharacterDetails";
 
 const RoutesContainer = styled.div`
   margin-top: ${({ theme }) => theme.headerHeight};
@@ -30,7 +30,7 @@ const App = (): JSX.Element => {
             <Route path={PagesPaths.WILDCARD} element={<Home />} />
             <Route
               path={`${PagesPaths.CHARACTERS}/:character_id/:trail`}
-              element={<Character />}
+              element={<CharacterDetails />}
             />
             <Route
               path={`${PagesPaths.PLANET}/:planet_id/:trail`}

@@ -1,7 +1,17 @@
 import { ReactComponent as SortByAlpha } from "../assets/img/icons/sort-by-alpha.svg";
 import { ReactComponent as SortByNumber } from "../assets/img/icons/sort-by-number.svg";
 import { ReactComponent as SortByTime } from "../assets/img/icons/sort-by-time.svg";
+import { ReactComponent as ProfileIcon } from "../assets/img/icons/profile-circle.svg";
+import { ReactComponent as CalendarIcon } from "../assets/img/icons/calendar.svg";
+import { ReactComponent as PlanetIcon } from "../assets/img/icons/planet.svg";
+import { ReactComponent as HeightIcon } from "../assets/img/icons/tape-measure.svg";
+import { ReactComponent as MassIcon } from "../assets/img/icons/weight.svg";
+import { ReactComponent as HairIcon } from "../assets/img/icons/hair.svg";
+import { ReactComponent as HandIcon } from "../assets/img/icons/hand.svg";
+import { ReactComponent as EyeIcon } from "../assets/img/icons/eye.svg";
+import { ReactComponent as GenderIcon } from "../assets/img/icons/gender.svg";
 import { TSortable, TSortDirection } from "../models/types";
+import { Icons } from "../models/enums";
 
 export const getSortIcon = (sortableType?: TSortable) => {
   switch (sortableType) {
@@ -11,6 +21,31 @@ export const getSortIcon = (sortableType?: TSortable) => {
       return <SortByNumber className={sortableType} />;
     case "time":
       return <SortByTime className={sortableType} />;
+    default:
+      return null;
+  }
+};
+
+export const getIcon = (key: string) => {
+  switch (key) {
+    case Icons.PROFILE:
+      return <ProfileIcon className={key} />;
+    case Icons.CALENDAR:
+      return <CalendarIcon className={key} />;
+    case Icons.PLANET:
+      return <PlanetIcon className={key} />;
+    case Icons.HEIGHT:
+      return <HeightIcon className={key} />;
+    case Icons.MASS:
+      return <MassIcon className={key} />;
+    case Icons.HAIR:
+      return <HairIcon className={key} />;
+    case Icons.HAND:
+      return <HandIcon className={key} />;
+    case Icons.EYE:
+      return <EyeIcon className={key} />;
+    case Icons.GENDER:
+      return <GenderIcon className={key} />;
     default:
       return null;
   }

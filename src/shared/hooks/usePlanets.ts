@@ -49,7 +49,7 @@ export const usePlanets = ({ character = undefined }: IUsePlanets) => {
         dispatch(fetchPlanetsSuccess(data));
       });
     }
-  }, [currentPlanet, planet_id]);
+  }, [character, currentPlanet, planet_id]);
 
   return {
     planets,

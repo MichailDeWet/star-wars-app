@@ -1,3 +1,5 @@
+import { JSX } from "react";
+
 export type Film = {
   title: string;
   episode_id: number;
@@ -51,4 +53,11 @@ export type TableHeadings<T> = {
 export type SortPayload<T> = {
   key: keyof T;
   sortableType: TSortable;
+};
+
+export type CardDetails<T> = {
+  key: keyof T;
+  icon: JSX.Element | null;
+  title: string;
+  unit?: string;
 };

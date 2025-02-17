@@ -1,6 +1,11 @@
 import styled from "styled-components";
 import { TSortable, TSortDirection } from "../../models/types";
 import { Link } from "react-router-dom";
+import { hover } from "@testing-library/user-event/dist/hover";
+import { profile } from "console";
+import { size } from "lodash-es";
+import path from "path";
+import { text } from "stream/consumers";
 
 export const PageTitle = styled.h1`
   margin: 1rem 0;
@@ -103,7 +108,9 @@ export const StyledTH = styled.th<{
   }
 `;
 
-export const NavLink = styled(Link)<{ isTableLink?: boolean }>`
+export const NavLink = styled(Link).withConfig({
+  shouldForwardProp: (prop) => prop !== "isTableLink",
+})<{ isTableLink?: boolean }>`
   font-size: ${({ theme }) => theme.headerLinkSize};
   color: ${({ theme, isTableLink }) =>
     isTableLink ? theme.color : theme.linkColor};
@@ -112,5 +119,68 @@ export const NavLink = styled(Link)<{ isTableLink?: boolean }>`
   &:hover {
     text-decoration: underline;
     color: ${({ theme }) => theme.linkColor};
+  }
+`;
+
+export const CardContainer = styled.div`
+  width: 100%;
+  height: 275px;
+  padding: 20px;
+  border: 4px solid ${({ theme }) => theme.borderColor};
+  border-radius: 20px;
+
+  .profile-icon {
+    float: left;
+    height: 100%;
+    margin-right: 2rem;
+
+    path {
+      fill: ${({ theme }) => theme.detailedIconColor};
+    }
+  }
+
+  svg:not(.profile-icon) {
+    height: 13px;
+  }
+
+  .planet-icon,
+  .mass-icon,
+  .hair-icon,
+  .hand-icon,
+  .gender-icon,
+  .height-icon,
+  .eye-icon {
+    path {
+      fill: ${({ theme }) => theme.detailedIconColor};
+    }
+  }
+
+  .calendar-icon {
+    path {
+      stroke: ${({ theme }) => theme.detailedIconColor};
+    }
+  }
+`;
+
+export const StatContainer = styled.div`
+  display: flex;
+  gap: 45px;
+  flex-flow: wrap;
+`;
+
+export const ValueContainer = styled.div`
+  margin-top: 5px;
+  justify-self: anchor-center;
+  text-transform: capitalize;
+  font-weight: bold;
+`;
+
+export const LabelContainer = styled.div`
+  display: flex;
+  align-items: anchor-center;
+  gap: 8px;
+
+  p {
+    color: ${({ theme }) => theme.headingColor};
   }
 `;

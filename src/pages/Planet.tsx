@@ -1,6 +1,9 @@
 import { JSX } from "react";
-import { PageContainer, PageTitle } from "../shared/styles/styles";
-import { DetailContainer } from "./MovieDetails";
+import {
+  CardContainer,
+  PageContainer,
+  PageTitle,
+} from "../shared/styles/styles";
 import { usePlanets } from "../shared/hooks/usePlanets";
 
 const Planet = (): JSX.Element => {
@@ -26,7 +29,7 @@ const Planet = (): JSX.Element => {
 
   return (
     <PageContainer>
-      <DetailContainer fullWidth>
+      <CardContainer>
         <PageTitle>Planet Card:{name} </PageTitle>
         <p>Rotational Period: {rotation_period}</p>
         <p>Orbital Period: {orbital_period}</p>
@@ -37,7 +40,7 @@ const Planet = (): JSX.Element => {
         <p>Surface Water: {surface_water}</p>
         <p>Total Population: {population}</p>
         <p>Number of Residents: {residents}</p>
-      </DetailContainer>
+      </CardContainer>
     </PageContainer>
   );
 };
