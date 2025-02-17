@@ -1,4 +1,4 @@
-import { JSX, useMemo } from "react";
+import { JSX } from "react";
 import { useCharacters } from "../shared/hooks/useCharacters";
 import {
   CardContainer,
@@ -14,6 +14,7 @@ import { CardDetails, Character, Planet } from "../models/types";
 import { extractNumberFromUrl, getItemById } from "../utils/entityUtils";
 import { Icons, PagesPaths } from "../models/enums";
 import { getIcon } from "../utils/tableUtils";
+import Dropdown from "../components/DropDown";
 
 const cardDetails: CardDetails<Character>[] = [
   { icon: getIcon(Icons.CALENDAR), title: "Born In:", key: "birth_year" },
@@ -26,11 +27,8 @@ const cardDetails: CardDetails<Character>[] = [
 ];
 
 const CharacterDetails = (): JSX.Element => {
-  const { characters, currentCharacter, sortDirection, sortKey } =
-    useCharacters({});
+  const { currentCharacter } = useCharacters({});
   const { planets } = usePlanets({ character: currentCharacter });
-
-  console.log("LOG: planets", planets);
 
   if (!currentCharacter) {
     return <>No Character Found</>;
@@ -39,7 +37,6 @@ const CharacterDetails = (): JSX.Element => {
   const { name, homeworld, films } = currentCharacter;
 
   const homeWorldId = extractNumberFromUrl(homeworld)?.toString();
-
   const world = getItemById<Planet>(planets, homeWorldId)?.name;
 
   const createNavLink = () => {
@@ -84,6 +81,8 @@ const CharacterDetails = (): JSX.Element => {
           ))}
         </StatContainer>
       </CardContainer>
+
+      <Dropdown films={films} />
     </PageContainer>
   );
 };

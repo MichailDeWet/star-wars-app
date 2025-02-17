@@ -7,8 +7,11 @@ import {
   fetchFilmsFailure,
 } from "../../store/filmsSlice";
 import { RootState } from "../../store/store";
+import { IUseMovies } from "../../models/interfaces";
+import { PagesPaths } from "../../models/enums";
+import { convertEpisodeIdToRoman } from "../../utils/entityUtils";
 
-export const useMovies = () => {
+export const useMovies = ({ isOpen = true }: IUseMovies) => {
   const dispatch = useDispatch();
   const { films, sortKey, sortDirection, loading, error } = useSelector(
     (state: RootState) => state.films
@@ -25,11 +28,19 @@ export const useMovies = () => {
     }
   };
 
+  const createNavLink = (episodeId: number, title: string) => {
+    return `${
+      PagesPaths.MOVIE
+    }/${episodeId}/star-wars-episode-${convertEpisodeIdToRoman(
+      episodeId
+    )}-${title.toLowerCase().replace(/ /g, "-")}`;
+  };
+
   useEffect(() => {
-    if (!films.length && !loading && !error) {
+    if (!films.length && !loading && !error && isOpen) {
       getFilms();
     }
-  }, []);
+  }, [isOpen]);
 
   return {
     films,
@@ -37,5 +48,6 @@ export const useMovies = () => {
     sortDirection,
     loading,
     error,
+    createNavLink,
   };
 };

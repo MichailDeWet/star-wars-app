@@ -14,6 +14,7 @@ export enum DataEndpoints {
 
 export enum Icons {
   CALENDAR = "calendar-icon",
+  CARET = "caret-icon",
   COMPASS = "compass-icon",
   EYE = "eye-icon",
   GENDER = "gender-icon",
@@ -23,6 +24,7 @@ export enum Icons {
   HEIGHT = "height-icon",
   ORBIT = "orbit-icon",
   MASS = "mass-icon",
+  MOVIE = "movie-icon",
   PLANET = "planet-icon",
   POPULATION = "population-icon",
   PROFILE = "profile-icon",

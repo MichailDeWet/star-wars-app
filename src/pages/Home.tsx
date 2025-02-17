@@ -29,18 +29,11 @@ const headings: TableHeadings<Film>[] = [
 
 const Home = (): JSX.Element => {
   const dispatch = useDispatch();
-  const { films, sortKey, sortDirection, loading, error } = useMovies();
+  const { films, sortKey, sortDirection, loading, error, createNavLink } =
+    useMovies({});
 
   const handleSort = ({ key, sortableType }: SortPayload<Film>) => {
     dispatch(sortFilms({ key, sortableType }));
-  };
-
-  const createNavLink = (episodeId: number, title: string) => {
-    return `${
-      PagesPaths.MOVIE
-    }/${episodeId}/star-wars-episode-${convertEpisodeIdToRoman(
-      episodeId
-    )}-${title.toLowerCase().replace(/ /g, "-")}`;
   };
 
   return (

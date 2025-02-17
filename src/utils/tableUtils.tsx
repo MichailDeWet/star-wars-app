@@ -18,6 +18,8 @@ import { ReactComponent as WaterIcon } from "../assets/img/icons/water.svg";
 import { ReactComponent as PopulationIcon } from "../assets/img/icons/population.svg";
 import { ReactComponent as TerrainIcon } from "../assets/img/icons/terrain.svg";
 import { ReactComponent as ThermometerIcon } from "../assets/img/icons/thermometer.svg";
+import { ReactComponent as CaretIcon } from "../assets/img/icons/caret-arrow.svg";
+import { ReactComponent as MovieIcon } from "../assets/img/icons/movie.svg";
 import { TSortable, TSortDirection } from "../models/types";
 import { Icons } from "../models/enums";
 
@@ -40,6 +42,8 @@ export const getIcon = (key: string, isMainIcon?: boolean) => {
   switch (key) {
     case Icons.CALENDAR:
       return <CalendarIcon className={className} />;
+    case Icons.CARET:
+      return <CaretIcon className={className} />;
     case Icons.COMPASS:
       return <CompassIcon className={className} />;
     case Icons.EYE:
@@ -56,6 +60,8 @@ export const getIcon = (key: string, isMainIcon?: boolean) => {
       return <HeightIcon className={className} />;
     case Icons.MASS:
       return <MassIcon className={className} />;
+    case Icons.MOVIE:
+      return <MovieIcon className={className} />;
     case Icons.ORBIT:
       return <OrbitIcon className={className} />;
     case Icons.PLANET:

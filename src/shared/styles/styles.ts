@@ -115,6 +115,7 @@ export const NavLink = styled(Link).withConfig({
   color: ${({ theme, isTableLink }) =>
     isTableLink ? theme.color : theme.linkColor};
   text-decoration: none;
+  font-style: ${({ isTableLink }) => (isTableLink ? "italic" : "unset")};
 
   &:hover {
     text-decoration: underline;
@@ -127,6 +128,7 @@ export const CardContainer = styled.div`
   padding: 20px;
   border: 4px solid ${({ theme }) => theme.borderColor};
   border-radius: 20px;
+  box-shadow: 0px 10px 7px 0px ${({ theme }) => theme.boxShadow};
 
   .main-icon {
     float: left;
@@ -163,6 +165,7 @@ export const CardContainer = styled.div`
   .terrain-icon,
   .water-icon,
   .population-icon,
+  .movie-icon,
   .eye-icon {
     path {
       fill: ${({ theme }) => theme.detailedIconColor};
@@ -194,6 +197,7 @@ export const ValueContainer = styled.div`
   justify-self: left;
   text-transform: capitalize;
   font-weight: bold;
+  white-space: nowrap;
 `;
 
 export const LabelContainer = styled.div`

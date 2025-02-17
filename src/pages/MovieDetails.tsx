@@ -68,7 +68,7 @@ const MovieDetailsPage = (): JSX.Element => {
     trail: string;
   }>();
 
-  const { films } = useMovies();
+  const { films } = useMovies({});
 
   const film = useMemo(
     () => getFilmById(films, episode_id),
