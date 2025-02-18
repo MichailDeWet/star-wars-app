@@ -32,4 +32,5 @@ export interface ILoading {
 
 export interface IErrorMessage {
   message: string;
+  marginLeft?: string;
 }

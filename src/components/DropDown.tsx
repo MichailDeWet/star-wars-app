@@ -13,6 +13,7 @@ import {
 import { Character, Film } from "../models/types";
 import { useCharacters } from "../shared/hooks/useCharacters";
 import Loading from "./Loading";
+import ErrorMessage from "./ErrorMessage";
 
 const LoadingContainer = styled.div`
   margin-bottom: 1rem;
@@ -94,6 +95,7 @@ const Dropdown = ({ films, residents }: IDropdown) => {
     characters,
     createNavLink: charactersNavLink,
     loading: charactersLoading,
+    error,
   } = useCharacters({
     isInView: isResidentsOpen,
     givenCharacters: residents,
@@ -155,6 +157,12 @@ const Dropdown = ({ films, residents }: IDropdown) => {
           >
             Residents:{getIcon(Icons.CARET)}
           </DropDownHeader>
+          {isResidentsOpen && error && error.length > 0 && (
+            <ErrorMessage
+              marginLeft={"20px"}
+              message="Not all Residents showing, please try again later..."
+            />
+          )}
           {isResidentsOpen &&
             characters.length > 0 &&
             residents.map((resident) => {

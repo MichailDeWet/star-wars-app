@@ -120,7 +120,7 @@ const MovieDetailsPage = (): JSX.Element => {
       <PageContainer>
         <PageTitle ref={elementRef}>Cast</PageTitle>
         {error && error.length > 0 && (
-          <ErrorMessage message="Not all Cast Members showing, please try again later..." />
+          <ErrorMessage message="Not all Characters showing, please try again later..." />
         )}
         <StyledTable>
           <thead>
