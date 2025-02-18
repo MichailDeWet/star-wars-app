@@ -5,7 +5,7 @@ import { lightTheme, darkTheme } from "./theme/theme";
 import { GlobalStyles } from "./theme/globalStyles";
 import { JSX } from "react";
 import Header from "./components/Header";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { HashRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import { PagesPaths } from "./models/enums";
 import MovieDetails from "./pages/MovieDetails";
@@ -22,7 +22,7 @@ const App = (): JSX.Element => {
 
   return (
     <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
-      <BrowserRouter>
+      <HashRouter>
         <GlobalStyles />
         <Header />
         <RoutesContainer>
@@ -44,7 +44,7 @@ const App = (): JSX.Element => {
             />
           </Routes>
         </RoutesContainer>
-      </BrowserRouter>
+      </HashRouter>
     </ThemeProvider>
   );
 };
