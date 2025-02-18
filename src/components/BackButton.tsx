@@ -53,7 +53,7 @@ const BackButton = (): JSX.Element => {
   }
 
   return (
-    <StyledBackButton id="reminderButton" onClick={() => navigate(-1)}>
+    <StyledBackButton onClick={() => navigate(-1)}>
       <Arrow />
     </StyledBackButton>
   );

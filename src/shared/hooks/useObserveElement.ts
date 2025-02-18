@@ -1,5 +1,9 @@
 import { useLayoutEffect, useRef, useState } from "react";
 
+/**
+ * This hook is used to determine whether a DOM element is in view or not
+ * @returns
+ */
 export const useObserveElement = () => {
   const [isInView, setIsInView] = useState<boolean>(false);
   const elementRef = useRef<HTMLDivElement>(null);
@@ -24,6 +28,7 @@ export const useObserveElement = () => {
 
     const element = elementRef.current;
 
+    /* Checking for element every 100ms to avoid race conditions */
     const checkElement = setInterval(() => {
       if (element) {
         observer.observe(element);

@@ -49,14 +49,14 @@ const CrawlParagraph = styled.p`
   text-align-last: justify;
 `;
 
+/* This will split the crawl text on newlines and allow use to style the paragraphs true to source */
 const convertToHTML = (text: string) => {
-  // Split the text by two newlines to create paragraphs
   const paragraphs = text.split(/\r\n\r\n/);
 
   return paragraphs.map((para, index) => (
-    <CrawlParagraph key={index}>
+    <CrawlParagraph key={`${index}-${para[0]}`}>
       {para.split(/\r\n/).map((line, lineIndex) => (
-        <Fragment key={lineIndex}>
+        <Fragment key={`${lineIndex}-${line[0]}`}>
           {line}
           {lineIndex !== para.split(/\r\n/).length - 1 && <br />}
         </Fragment>

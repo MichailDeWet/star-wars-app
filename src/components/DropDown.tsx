@@ -71,6 +71,7 @@ const Dropdown = ({ films, residents }: IDropdown) => {
   const { films: allFilms, createNavLink: moviesNavLink } = useMovies({
     isOpen: isFilmsOpen,
   });
+
   const { characters, createNavLink: charactersNavLink } = useCharacters({
     isInView: isResidentsOpen,
     givenCharacters: residents,
@@ -118,6 +119,7 @@ const Dropdown = ({ films, residents }: IDropdown) => {
       )}
 
       {residents && residents.length > 0 && (
+        // Having variable offset allows for special case planets which are not in any movies
         <SecondaryCardContainer offSet={films.length ? 2 : 1}>
           <Spacer />
           <DropDownHeader

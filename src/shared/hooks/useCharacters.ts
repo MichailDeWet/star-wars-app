@@ -40,12 +40,14 @@ export const useCharacters = ({
     if (isInView || (isInView === undefined && character_id)) {
       let missingCharacterUrls: string[] = [];
 
+      /* Get only the current character */
       if (!currentCharacter) {
         missingCharacterUrls = [
           `${apiUrl}${DataEndpoints.PEOPLE}/${character_id}`,
         ];
       }
 
+      /* Get all characters not currently in Redux */
       if (givenCharacters) {
         missingCharacterUrls = givenCharacters.filter(
           (url) => !characters.some((character) => character.url === url)

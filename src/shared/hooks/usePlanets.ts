@@ -30,10 +30,12 @@ export const usePlanets = ({ character = undefined }: IUsePlanets) => {
   useEffect(() => {
     let missingPlanetUrls: string[] = [];
 
+    /* Just get the current planet */
     if (!currentPlanet && planet_id) {
       missingPlanetUrls = [`${apiUrl}${DataEndpoints.PLANETS}/${planet_id}`];
     }
 
+    /* Get the home planet of a character */
     if (character) {
       missingPlanetUrls = [character.homeworld];
     }
