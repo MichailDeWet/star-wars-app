@@ -22,7 +22,8 @@ const App = (): JSX.Element => {
 
   return (
     <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
-      <BrowserRouter>
+      {/* This ensures that the basename remains in the url, allowing GH pages to work with navigation */}
+      <BrowserRouter basename="/star-wars-app">
         <GlobalStyles />
         <Header />
         <RoutesContainer>
