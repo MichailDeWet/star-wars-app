@@ -1,6 +1,8 @@
 import { DefaultTheme } from "styled-components";
 import { ReactComponent as JediLogo } from "../assets/img/logos/jedi-logo.svg";
 import { ReactComponent as SithLogo } from "../assets/img/logos/sith-logo.svg";
+import { ReactComponent as Chewbacca } from "../assets/img/icons/chewbacca.svg";
+import { ReactComponent as DarthVader } from "../assets/img/icons/darth-vader.svg";
 import LightBackground from "../assets/img/backgrounds/hero-background-light.webp";
 import DarkBackground from "../assets/img/backgrounds/hero-background-dark.webp";
 
@@ -32,6 +34,7 @@ export const lightTheme: DefaultTheme = {
   detailedIconColor: `${blue}80`,
   headingColor: blue,
   linkColor: blue,
+  loadingIconColor: blue,
   logoColor: blue,
   tableHeadingHoverBackgroundColor: blue,
   tableHeadingHoverColor: white,
@@ -39,6 +42,7 @@ export const lightTheme: DefaultTheme = {
 
   /* Images */
   heroBackground: LightBackground,
+  loadingIcon: Chewbacca,
   themeToggle: JediLogo,
 };
 
@@ -55,6 +59,7 @@ export const darkTheme: DefaultTheme = {
   detailedIconColor: `${yellow}90`,
   headingColor: yellow,
   linkColor: yellow,
+  loadingIconColor: yellow,
   logoColor: yellow,
   tableHeadingHoverBackgroundColor: yellow,
   tableHeadingHoverColor: black,
@@ -62,5 +67,6 @@ export const darkTheme: DefaultTheme = {
 
   /* Images */
   heroBackground: DarkBackground,
+  loadingIcon: DarthVader,
   themeToggle: SithLogo,
 };

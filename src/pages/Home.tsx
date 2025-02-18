@@ -13,6 +13,7 @@ import { getSortDirection, getSortIcon } from "../utils/tableUtils";
 import { ReactComponent as SortDirection } from "../assets/img/icons/sort-direction.svg";
 import { useMovies } from "../shared/hooks/useMovies";
 import { convertEpisodeIdToRoman } from "../utils/entityUtils";
+import Loading from "../components/Loading";
 
 const headings: TableHeadings<Film>[] = [
   {
@@ -37,7 +38,6 @@ const Home = (): JSX.Element => {
   return (
     <PageContainer>
       <PageTitle>Movies</PageTitle>
-      {loading && <p>Loading films...</p>}
       {error && <p>{error}</p>}
       <StyledTable>
         <thead>
@@ -71,6 +71,15 @@ const Home = (): JSX.Element => {
               <td>Episode {convertEpisodeIdToRoman(episode_id)}</td>
             </tr>
           ))}
+          {loading && (
+            <tr>
+              <td />
+              <td>
+                <Loading />
+              </td>
+              <td />
+            </tr>
+          )}
         </tbody>
       </StyledTable>
     </PageContainer>
