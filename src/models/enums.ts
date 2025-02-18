@@ -43,3 +43,7 @@ export enum DeviceSizes {
   LARGE_DESKTOP = "1440px",
   EXTRA_LARGE_DESKTOP = "1920px",
 }
+
+export enum LocalStorageKeys {
+  THEME = "theme-preference",
+}
