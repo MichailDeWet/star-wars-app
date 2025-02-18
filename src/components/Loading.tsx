@@ -2,7 +2,9 @@ import { JSX } from "react";
 import styled, { useTheme } from "styled-components";
 import { ILoading } from "../models/interfaces";
 
-const LoaderContainer = styled.div<ILoading>`
+const LoaderContainer = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== "isFullPage",
+})<ILoading>`
   height: ${({ isFullPage }) => (isFullPage ? "100vh" : "unset")};
   justify-items: anchor-center;
   justify-self: center;

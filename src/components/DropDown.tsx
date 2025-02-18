@@ -23,7 +23,9 @@ const LoadingContainer = styled.div`
   }
 `;
 
-const SecondaryCardContainer = styled(CardContainer)<{ offSet: number }>`
+const SecondaryCardContainer = styled(CardContainer).withConfig({
+  shouldForwardProp: (prop) => prop !== "offSet",
+})<{ offSet: number }>`
   width: 100%;
   padding: 20px;
   border: 4px solid ${({ theme }) => theme.borderColor};
@@ -41,7 +43,9 @@ const Spacer = styled.div`
   height: 65px;
 `;
 
-const DropDownHeader = styled.h2<{ isOpen: boolean }>`
+const DropDownHeader = styled.h2.withConfig({
+  shouldForwardProp: (prop) => prop !== "isOpen",
+})<{ isOpen: boolean }>`
   padding: 0 20px 20px;
   color: ${({ theme }) => theme.headingColor};
   font-style: italic;

@@ -8,7 +8,9 @@ export const PageTitle = styled.h1`
   color: ${({ theme }) => theme.headingColor};
 `;
 
-export const PageContainer = styled.div<{ isHero?: boolean }>`
+export const PageContainer = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== "isHero",
+})<{ isHero?: boolean }>`
   padding: 1rem 3rem 3rem;
   z-index: ${({ isHero }) => (isHero ? 10 : 0)};
   position: relative;
@@ -46,7 +48,10 @@ export const StyledTable = styled.table`
   }
 `;
 
-export const StyledTH = styled.th<{
+export const StyledTH = styled.th.withConfig({
+  shouldForwardProp: (prop) =>
+    prop !== "sortableType" && prop !== "sortDirection",
+})<{
   width: string;
   sortableType?: TSortable;
   sortDirection?: TSortDirection;
