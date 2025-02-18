@@ -76,10 +76,10 @@ const PlanetDetails = (): JSX.Element => {
                 <p>{title}</p>
               </LabelContainer>
               <ValueContainer>
-                {key === "population"
+                {key === "population" && currentPlanet[key] !== "unknown"
                   ? formatNumber(Number(currentPlanet[key]))
                   : currentPlanet[key]}
-                {unit ?? ""}
+                {(currentPlanet[key] !== "unknown" && unit) ?? ""}
               </ValueContainer>
             </div>
           ))}

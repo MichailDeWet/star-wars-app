@@ -11,7 +11,7 @@ import { fetchPlanetsSuccess } from "../../store/planetsSlice";
 
 const apiUrl = process.env.REACT_APP_SWAPI_URL;
 
-export const usePlanets = ({ character = undefined }: IUsePlanets) => {
+export const usePlanets = ({ character }: IUsePlanets) => {
   const dispatch = useDispatch();
   const { planet_id } = useParams<{
     planet_id: string;

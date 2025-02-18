@@ -138,10 +138,16 @@ const Dropdown = ({ films, residents }: IDropdown) => {
                 return null;
               }
 
-              const { name } = getItemById<Character>(
+              const item = getItemById<Character>(
                 characters,
                 id.toString()
               ) as Character;
+
+              if (!item) {
+                return null;
+              }
+
+              const { name } = item;
 
               return (
                 <DropDownListItem key={name}>

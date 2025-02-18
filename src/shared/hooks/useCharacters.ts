@@ -16,8 +16,8 @@ import { Character } from "../../models/types";
 const apiUrl = process.env.REACT_APP_SWAPI_URL;
 
 export const useCharacters = ({
-  givenCharacters = undefined,
-  isInView = undefined,
+  givenCharacters,
+  isInView,
 }: IUseCharacters) => {
   const dispatch = useDispatch();
   const { character_id } = useParams<{

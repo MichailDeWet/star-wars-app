@@ -61,9 +61,13 @@ const CharacterDetails = (): JSX.Element => {
               <p>Home World:</p>
             </LabelContainer>
             <ValueContainer>
-              <NavLink isTableLink to={createNavLink()}>
-                {world}
-              </NavLink>
+              {world === "unknown" ? (
+                world
+              ) : (
+                <NavLink isTableLink to={createNavLink()}>
+                  {world}
+                </NavLink>
+              )}
             </ValueContainer>
           </div>
 
@@ -75,7 +79,7 @@ const CharacterDetails = (): JSX.Element => {
               </LabelContainer>
               <ValueContainer>
                 {currentCharacter[key]}
-                {unit ?? ""}
+                {(currentCharacter[key] !== "unknown" && unit) ?? ""}
               </ValueContainer>
             </div>
           ))}
