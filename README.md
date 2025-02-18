@@ -2,6 +2,8 @@
 
 Welcome to the Star Wars App! 🌌🚀
 
+The site is hosted at: [https://michaildewet.github.io/star-wars-app/](https://michaildewet.github.io/star-wars-app/)
+
 ## Table of Contents
 
 - [Overview](#overview)
