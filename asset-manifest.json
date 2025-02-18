@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.js": "/star-wars-app/static/js/main.d98c4dd8.js",
+    "main.js": "/star-wars-app/static/js/main.dddcdcca.js",
     "static/js/453.aa012a6e.chunk.js": "/star-wars-app/static/js/453.aa012a6e.chunk.js",
     "static/media/hero-background-light.webp": "/star-wars-app/static/media/hero-background-light.0bed753d259d64b1e844.webp",
     "static/media/hero-background-dark.webp": "/star-wars-app/static/media/hero-background-dark.09cbad16e000d1c76f39.webp",
@@ -34,10 +34,10 @@
     "static/media/gravity.svg": "/star-wars-app/static/media/gravity.23d13d15a5449c5f3104215b8a25867a.svg",
     "static/media/sort-direction.svg": "/star-wars-app/static/media/sort-direction.d2c8b16d559b9e5f678ac5f452569e5c.svg",
     "static/media/caret-arrow.svg": "/star-wars-app/static/media/caret-arrow.871b7f228bd71fb1f5d6684bbbe26e34.svg",
-    "main.d98c4dd8.js.map": "/star-wars-app/static/js/main.d98c4dd8.js.map",
+    "main.dddcdcca.js.map": "/star-wars-app/static/js/main.dddcdcca.js.map",
     "453.aa012a6e.chunk.js.map": "/star-wars-app/static/js/453.aa012a6e.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/main.d98c4dd8.js"
+    "static/js/main.dddcdcca.js"
   ]
 }
