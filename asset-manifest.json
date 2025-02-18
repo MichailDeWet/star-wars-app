@@ -1,0 +1,43 @@
+{
+  "files": {
+    "main.js": "/star-wars-app/static/js/main.d98c4dd8.js",
+    "static/js/453.aa012a6e.chunk.js": "/star-wars-app/static/js/453.aa012a6e.chunk.js",
+    "static/media/hero-background-light.webp": "/star-wars-app/static/media/hero-background-light.0bed753d259d64b1e844.webp",
+    "static/media/hero-background-dark.webp": "/star-wars-app/static/media/hero-background-dark.09cbad16e000d1c76f39.webp",
+    "static/media/star-wars-logo.svg": "/star-wars-app/static/media/star-wars-logo.7c9db35480ef2987d456825af501fdf2.svg",
+    "static/media/chewbacca.svg": "/star-wars-app/static/media/chewbacca.4291632891be26f2decb3b7018e838c0.svg",
+    "static/media/darth-vader.svg": "/star-wars-app/static/media/darth-vader.52aa46b9a356cd7c805271c68982b63f.svg",
+    "static/media/gender.svg": "/star-wars-app/static/media/gender.78da18f3268bb53764e736bafd4624fc.svg",
+    "static/media/population.svg": "/star-wars-app/static/media/population.0f1bd6f058140f82cc29add66ee6097e.svg",
+    "static/media/sort-by-number.svg": "/star-wars-app/static/media/sort-by-number.3a79896be93fe99768ffe483f84fa777.svg",
+    "static/media/water.svg": "/star-wars-app/static/media/water.8c6911ce8bd4a4e17eb0f1b92ff6e6a7.svg",
+    "static/media/sith-logo.svg": "/star-wars-app/static/media/sith-logo.52140e6e9eaae59052bc6f1471ffa1c5.svg",
+    "static/media/tape-measure.svg": "/star-wars-app/static/media/tape-measure.56644ad2e1481dbe31804d8b64f10008.svg",
+    "static/media/compass.svg": "/star-wars-app/static/media/compass.600c181c07114abef30f17980f29270a.svg",
+    "static/media/planet.svg": "/star-wars-app/static/media/planet.1a694180a47f2ee4bd16d1761579e8aa.svg",
+    "static/media/jedi-logo.svg": "/star-wars-app/static/media/jedi-logo.9c7cd706993c7f5ccad183b58a5c8b52.svg",
+    "static/media/mass.svg": "/star-wars-app/static/media/mass.3f82b7e9ef5e851832c5f882b1baa8bf.svg",
+    "static/media/back-button.svg": "/star-wars-app/static/media/back-button.c878b16e0eb3751262dab773745c4528.svg",
+    "static/media/sort-by-alpha.svg": "/star-wars-app/static/media/sort-by-alpha.249742fd363a23a75045b62c9ee999c2.svg",
+    "static/media/movie.svg": "/star-wars-app/static/media/movie.f530aea039bf081d8c2df0689391ca14.svg",
+    "static/media/hair.svg": "/star-wars-app/static/media/hair.0700912a290fb8f074b6092863e59b2f.svg",
+    "static/media/hand.svg": "/star-wars-app/static/media/hand.caf989079ab02c6ec0e3d841cb2996d3.svg",
+    "static/media/profile-circle.svg": "/star-wars-app/static/media/profile-circle.ba13a4210b311479071eddb68e30bdb9.svg",
+    "static/media/eye.svg": "/star-wars-app/static/media/eye.7588e0b4f146d286457addd0ee994b18.svg",
+    "index.html": "/star-wars-app/index.html",
+    "static/media/calendar.svg": "/star-wars-app/static/media/calendar.941ebe8321534b6adec6f3db9406548f.svg",
+    "static/media/terrain.svg": "/star-wars-app/static/media/terrain.93f9a20e8f1fa3337d5b71c398280e1f.svg",
+    "static/media/thermometer.svg": "/star-wars-app/static/media/thermometer.3e37d620c804dd75f2cabcf2041f5c40.svg",
+    "static/media/orbit.svg": "/star-wars-app/static/media/orbit.7bb42834aed0d6f839d369d0ecba6aa1.svg",
+    "static/media/sort-by-time.svg": "/star-wars-app/static/media/sort-by-time.d8ca5503fa7b50809e073b4e71dba8c4.svg",
+    "static/media/rotation.svg": "/star-wars-app/static/media/rotation.86f9f73becc7d3163f82d156a65ce048.svg",
+    "static/media/gravity.svg": "/star-wars-app/static/media/gravity.23d13d15a5449c5f3104215b8a25867a.svg",
+    "static/media/sort-direction.svg": "/star-wars-app/static/media/sort-direction.d2c8b16d559b9e5f678ac5f452569e5c.svg",
+    "static/media/caret-arrow.svg": "/star-wars-app/static/media/caret-arrow.871b7f228bd71fb1f5d6684bbbe26e34.svg",
+    "main.d98c4dd8.js.map": "/star-wars-app/static/js/main.d98c4dd8.js.map",
+    "453.aa012a6e.chunk.js.map": "/star-wars-app/static/js/453.aa012a6e.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.d98c4dd8.js"
+  ]
+}
