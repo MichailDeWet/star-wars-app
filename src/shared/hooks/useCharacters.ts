@@ -58,7 +58,14 @@ export const useCharacters = ({
         });
       }
     }
-  }, [isInView, characters, givenCharacters, character_id, currentCharacter]);
+  }, [
+    isInView,
+    characters,
+    givenCharacters,
+    character_id,
+    currentCharacter,
+    dispatch,
+  ]);
 
   return {
     characters,

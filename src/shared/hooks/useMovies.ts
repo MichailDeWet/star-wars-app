@@ -40,6 +40,8 @@ export const useMovies = ({ isOpen = true }: IUseMovies) => {
     if (!films.length && !loading && !error && isOpen) {
       getFilms();
     }
+    // We only want to run this when isOpen changes
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]);
 
   return {

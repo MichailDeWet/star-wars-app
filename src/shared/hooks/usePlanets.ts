@@ -43,13 +43,11 @@ export const usePlanets = ({ character = undefined }: IUsePlanets) => {
         dispatch(fetchPlanetsSuccess(data));
       });
     }
-  }, [character, currentPlanet, planet_id]);
+  }, [character, currentPlanet, dispatch, planet_id]);
 
   return {
     planets,
     currentPlanet,
-    // sortKey,
-    // sortDirection,
     loading,
     error,
   };

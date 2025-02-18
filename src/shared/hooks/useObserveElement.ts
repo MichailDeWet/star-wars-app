@@ -22,16 +22,18 @@ export const useObserveElement = () => {
       }
     );
 
+    const element = elementRef.current;
+
     const checkElement = setInterval(() => {
-      if (elementRef.current) {
-        observer.observe(elementRef.current);
+      if (element) {
+        observer.observe(element);
         clearInterval(checkElement);
       }
     }, 100);
 
     return () => {
-      if (elementRef.current) {
-        observer.unobserve(elementRef.current);
+      if (element) {
+        observer.unobserve(element);
       }
 
       clearInterval(checkElement);
