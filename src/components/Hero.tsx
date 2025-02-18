@@ -1,6 +1,7 @@
 import { Fragment, JSX } from "react";
 import styled from "styled-components";
 import { IHeroPage } from "../models/interfaces";
+import { DeviceSizes } from "../models/enums";
 
 const CrawlContainer = styled.div`
   position: relative;
@@ -15,18 +16,18 @@ const CrawlContainer = styled.div`
 
 const CrawlText = styled.div`
   font-family: ${({ theme }) => theme.crawlFont};
-  font-size: 65px;
+  font-size: 4rem;
   font-weight: bold;
   color: ${({ theme }) => theme.crawlColor};
   text-align: center;
   position: relative;
   bottom: -100%;
-  animation: crawl 30s linear infinite;
+  animation: crawl 10s linear infinite;
   justify-self: anchor-center;
+  z-index: 0;
 
   @keyframes crawl {
     0% {
-      bottom: -100%;
       transform: rotateX(45deg) translateZ(0);
       opacity: 1;
     }
@@ -36,8 +37,8 @@ const CrawlText = styled.div`
     }
 
     100% {
-      bottom: 180rem;
-      transform: rotateX(55deg) translateZ(-150rem);
+      bottom: 240rem;
+      transform: rotateX(50deg) translateZ(-150rem);
       opacity: 0;
     }
   }

@@ -3,12 +3,7 @@ import { IDropdown } from "../models/interfaces";
 import styled from "styled-components";
 import { getIcon } from "../utils/tableUtils";
 import { Icons } from "../models/enums";
-import {
-  CardContainer,
-  LabelContainer,
-  NavLink,
-  ValueContainer,
-} from "../shared/styles/styles";
+import { CardContainer, NavLink } from "../shared/styles/styles";
 import { useMovies } from "../shared/hooks/useMovies";
 import {
   extractNumberFromUrl,
@@ -29,6 +24,7 @@ const SecondaryCardContainer = styled(CardContainer)<{ offSet: number }>`
   border-radius: 0 0 20px 20px;
   box-shadow: none;
   z-index: ${({ offSet }) => 10 - offSet};
+  min-height: unset;
 `;
 
 const Spacer = styled.div`
@@ -90,37 +86,39 @@ const Dropdown = ({ films, residents }: IDropdown) => {
 
   return (
     <>
-      <SecondaryCardContainer offSet={1}>
-        <Spacer />
-        <DropDownHeader isOpen={isFilmsOpen} onClick={toggleFilmsDropdown}>
-          Appears in:{getIcon(Icons.CARET)}
-        </DropDownHeader>
+      {films.length > 0 && (
+        <SecondaryCardContainer offSet={1}>
+          <Spacer />
+          <DropDownHeader isOpen={isFilmsOpen} onClick={toggleFilmsDropdown}>
+            Appears in:{getIcon(Icons.CARET)}
+          </DropDownHeader>
 
-        {isFilmsOpen &&
-          films.length > 0 &&
-          allFilms.length > 0 &&
-          films.map((film) => {
-            const id = extractNumberFromUrl(film);
+          {isFilmsOpen &&
+            films.length > 0 &&
+            allFilms.length > 0 &&
+            films.map((film) => {
+              const id = extractNumberFromUrl(film);
 
-            if (id === undefined) {
-              return null;
-            }
+              if (id === undefined) {
+                return null;
+              }
 
-            const { title } = getFilmById(allFilms, id.toString()) as Film;
+              const { title } = getFilmById(allFilms, id.toString()) as Film;
 
-            return (
-              <DropDownListItem key={title}>
-                {getIcon(Icons.MOVIE)}
-                <NavLink isTableLink to={moviesNavLink(id, title)}>
-                  {title}
-                </NavLink>
-              </DropDownListItem>
-            );
-          })}
-      </SecondaryCardContainer>
+              return (
+                <DropDownListItem key={title}>
+                  {getIcon(Icons.MOVIE)}
+                  <NavLink isTableLink to={moviesNavLink(id, title)}>
+                    {title}
+                  </NavLink>
+                </DropDownListItem>
+              );
+            })}
+        </SecondaryCardContainer>
+      )}
 
-      {residents && (
-        <SecondaryCardContainer offSet={2}>
+      {residents && residents.length > 0 && (
+        <SecondaryCardContainer offSet={films.length ? 2 : 1}>
           <Spacer />
           <DropDownHeader
             isOpen={isResidentsOpen}

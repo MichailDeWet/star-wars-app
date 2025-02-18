@@ -33,3 +33,13 @@ export enum Icons {
   THERMOMETER = "thermometer-icon",
   WATER = "water-icon",
 }
+
+export enum DeviceSizes {
+  MOBILE_SMALL = "320px",
+  MOBILE_MEDIUM = "425px",
+  MOBILE_LARGE = "480px",
+  TABLET = "768px",
+  DESKTOP = "1024px",
+  LARGE_DESKTOP = "1440px",
+  EXTRA_LARGE_DESKTOP = "1920px",
+}

@@ -1,14 +1,21 @@
 import styled from "styled-components";
 import { TSortable, TSortDirection } from "../../models/types";
 import { Link } from "react-router-dom";
+import { DeviceSizes } from "../../models/enums";
 
 export const PageTitle = styled.h1`
   margin: 1rem 0;
   color: ${({ theme }) => theme.headingColor};
 `;
 
-export const PageContainer = styled.div`
+export const PageContainer = styled.div<{ isHero?: boolean }>`
   padding: 1rem 3rem 3rem;
+  z-index: ${({ isHero }) => (isHero ? 10 : 0)};
+  position: relative;
+
+  @media (max-width: ${DeviceSizes.TABLET}) {
+    padding: 1rem 1rem 3rem;
+  }
 `;
 
 export const StyledTable = styled.table`
@@ -120,15 +127,19 @@ export const NavLink = styled(Link).withConfig({
 
 export const CardContainer = styled.div`
   width: 100%;
+  min-height: 250px;
   padding: 20px;
   border: 4px solid ${({ theme }) => theme.borderColor};
   border-radius: 20px;
   box-shadow: 0px 10px 7px 0px ${({ theme }) => theme.boxShadow};
 
   .main-icon {
-    float: left;
-    max-height: 200px;
-    margin-right: 2rem;
+    @media (min-width: ${DeviceSizes.MOBILE_LARGE}) {
+      float: left;
+      max-height: 200px;
+      margin-right: 2rem;
+      margin-bottom: 2rem;
+    }
   }
 
   .gravity-icon,
@@ -178,10 +189,6 @@ export const StatContainer = styled.div`
   display: flex;
   gap: 45px;
   flex-flow: wrap;
-
-  > div {
-    flex: 1 1 0;
-  }
 `;
 
 export const ValueContainer = styled.div`

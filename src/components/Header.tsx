@@ -4,7 +4,7 @@ import { toggleTheme } from "../store/themeSlice";
 import { ReactComponent as Logo } from "../assets/img/logos/star-wars-logo.svg";
 import { JSX } from "react";
 import { useNavigate } from "react-router-dom";
-import { PagesPaths } from "../models/enums";
+import { DeviceSizes, PagesPaths } from "../models/enums";
 import { NavLink } from "../shared/styles/styles";
 
 const HeaderContainer = styled.header`
@@ -20,6 +20,12 @@ const HeaderContainer = styled.header`
   top: 0;
   left: 0;
   z-index: 10;
+
+  @media (max-width: ${DeviceSizes.MOBILE_MEDIUM}) {
+    .randomize {
+      display: none;
+    }
+  }
 `;
 
 const StyledLogo = styled(Logo)`
@@ -39,11 +45,6 @@ const StyledLogo = styled(Logo)`
   }
 `;
 
-const Nav = styled.nav`
-  display: flex;
-  gap: 20px;
-`;
-
 const ThemeToggleButton = styled.div`
   cursor: pointer;
 
@@ -61,6 +62,16 @@ const ThemeToggleButton = styled.div`
   }
 `;
 
+const dataSet = [
+  { path: PagesPaths.MOVIE, range: 6 },
+  { path: PagesPaths.PLANET, range: 60 },
+  { path: PagesPaths.CHARACTERS, range: 82 },
+];
+
+const getRandomNumber = (min: number, max: number): number => {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
 const Header = (): JSX.Element => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -74,13 +85,19 @@ const Header = (): JSX.Element => {
     navigate(PagesPaths.HOME);
   };
 
+  const generateRandomPath = (): string => {
+    const { path, range } = dataSet[getRandomNumber(0, 2)];
+    const id = getRandomNumber(1, range);
+
+    return `${path}/${id}/star-wars-randomize`;
+  };
+
   return (
     <HeaderContainer>
       <StyledLogo onClick={handleLogoClick} />
-      <Nav>
-        <NavLink to={PagesPaths.HOME}>Home</NavLink>
-        <NavLink to={PagesPaths.CHARACTERS}>Characters</NavLink>
-      </Nav>
+      <NavLink className="randomize" to={generateRandomPath()}>
+        Randomize!
+      </NavLink>
       <ThemeToggleButton onClick={handleThemeToggle}>
         <ToggleIcon />
       </ThemeToggleButton>

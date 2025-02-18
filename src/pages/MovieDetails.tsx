@@ -25,8 +25,8 @@ import styled from "styled-components";
 import { useObserveElement } from "../shared/hooks/useObserveElement";
 import { Character, SortPayload, TableHeadings } from "../models/types";
 import { ReactComponent as SortDirection } from "../assets/img/icons/sort-direction.svg";
-import { PagesPaths } from "../models/enums";
 import { useCharacters } from "../shared/hooks/useCharacters";
+import { DeviceSizes } from "../models/enums";
 
 const DetailContainer = styled.div`
   width: 350px;
@@ -36,6 +36,10 @@ const DetailContainer = styled.div`
   text-align: center;
   color: ${({ theme }) => theme.headingColor};
   background-color: ${({ theme }) => theme.background};
+
+  @media (max-width: ${DeviceSizes.MOBILE_MEDIUM}) {
+    width: 100%;
+  }
 
   h1 {
     margin-bottom: 1rem;
@@ -100,7 +104,7 @@ const MovieDetailsPage = (): JSX.Element => {
         heading={`Episode ${convertEpisodeIdToRoman(Number(episode_id))}`}
         subHeading={title}
       >
-        <PageContainer>
+        <PageContainer isHero>
           <DetailContainer>
             <h1>{title}</h1>
             <p>

@@ -2,7 +2,6 @@ import { JSX } from "react";
 import {
   CardContainer,
   LabelContainer,
-  NavLink,
   PageContainer,
   PageTitle,
   StatContainer,
