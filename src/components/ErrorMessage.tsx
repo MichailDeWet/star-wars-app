@@ -1,7 +1,9 @@
 import { IErrorMessage } from "../models/interfaces";
 import styled from "styled-components";
 
-const ErrorContainer = styled.div<Pick<IErrorMessage, "marginLeft">>`
+const ErrorContainer = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== "marginLeft",
+})<Pick<IErrorMessage, "marginLeft">>`
   margin: 1rem 0;
   margin-left: ${({ marginLeft }) => marginLeft ?? "unset"};
 `;
