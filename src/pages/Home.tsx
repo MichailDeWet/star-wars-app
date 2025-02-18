@@ -1,5 +1,4 @@
 import { JSX } from "react";
-import { Hero } from "../components/Hero";
 import { useDispatch } from "react-redux";
 import { Film, SortPayload, TableHeadings } from "../models/types";
 import { sortFilms } from "../store/filmsSlice";
@@ -36,49 +35,45 @@ const Home = (): JSX.Element => {
   };
 
   return (
-    <>
-      {/* <Hero /> */}
-
-      <PageContainer>
-        <PageTitle>Movies</PageTitle>
-        {loading && <p>Loading films...</p>}
-        {error && <p>{error}</p>}
-        <StyledTable>
-          <thead>
-            <tr>
-              {headings.map(({ sortableType, key, label, width }) => (
-                <StyledTH
-                  key={key}
-                  sortableType={sortableType}
-                  sortDirection={getSortDirection(key, sortDirection, sortKey)}
-                  onClick={() => handleSort({ key, sortableType })}
-                  width={width}
-                >
-                  {label}
-                  {getSortIcon(sortableType)}
-                  {getSortDirection(key, sortDirection, sortKey) && (
-                    <SortDirection className="sort-direction" />
-                  )}
-                </StyledTH>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {films.map(({ url, release_date, title, episode_id }) => (
-              <tr key={url}>
-                <td>{new Date(release_date).toLocaleDateString()}</td>
-                <td>
-                  <NavLink isTableLink to={createNavLink(episode_id, title)}>
-                    {title}
-                  </NavLink>
-                </td>
-                <td>Episode {convertEpisodeIdToRoman(episode_id)}</td>
-              </tr>
+    <PageContainer>
+      <PageTitle>Movies</PageTitle>
+      {loading && <p>Loading films...</p>}
+      {error && <p>{error}</p>}
+      <StyledTable>
+        <thead>
+          <tr>
+            {headings.map(({ sortableType, key, label, width }) => (
+              <StyledTH
+                key={key}
+                sortableType={sortableType}
+                sortDirection={getSortDirection(key, sortDirection, sortKey)}
+                onClick={() => handleSort({ key, sortableType })}
+                width={width}
+              >
+                {label}
+                {getSortIcon(sortableType)}
+                {getSortDirection(key, sortDirection, sortKey) && (
+                  <SortDirection className="sort-direction" />
+                )}
+              </StyledTH>
             ))}
-          </tbody>
-        </StyledTable>
-      </PageContainer>
-    </>
+          </tr>
+        </thead>
+        <tbody>
+          {films.map(({ url, release_date, title, episode_id }) => (
+            <tr key={url}>
+              <td>{new Date(release_date).toLocaleDateString()}</td>
+              <td>
+                <NavLink isTableLink to={createNavLink(episode_id, title)}>
+                  {title}
+                </NavLink>
+              </td>
+              <td>Episode {convertEpisodeIdToRoman(episode_id)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </StyledTable>
+    </PageContainer>
   );
 };
 

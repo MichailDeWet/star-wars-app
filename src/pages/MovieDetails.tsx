@@ -1,10 +1,6 @@
 import { JSX, useMemo } from "react";
 import { useParams } from "react-router-dom";
-import {
-  convertEpisodeIdToRoman,
-  getFilmById,
-  extractNumberFromUrl,
-} from "../utils/entityUtils";
+import { convertEpisodeIdToRoman, getFilmById } from "../utils/entityUtils";
 import { useMovies } from "../shared/hooks/useMovies";
 import {
   NavLink,

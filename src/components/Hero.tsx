@@ -1,7 +1,6 @@
 import { Fragment, JSX } from "react";
 import styled from "styled-components";
 import { IHeroPage } from "../models/interfaces";
-import { DeviceSizes } from "../models/enums";
 
 const CrawlContainer = styled.div`
   position: relative;

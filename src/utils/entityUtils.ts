@@ -1,4 +1,4 @@
-import { Character, Film } from "../models/types";
+import { Film } from "../models/types";
 
 export const convertEpisodeIdToRoman = (episodeId: number): string => {
   switch (episodeId) {
