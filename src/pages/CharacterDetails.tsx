@@ -15,6 +15,8 @@ import { extractNumberFromUrl, getItemById } from "../utils/entityUtils";
 import { Icons, PagesPaths } from "../models/enums";
 import { getIcon } from "../utils/tableUtils";
 import Dropdown from "../components/DropDown";
+import Loading from "../components/Loading";
+import ErrorMessage from "../components/ErrorMessage";
 
 const cardDetails: CardDetails<Character>[] = [
   { icon: getIcon(Icons.CALENDAR), title: "Born In:", key: "birth_year" },
@@ -27,11 +29,16 @@ const cardDetails: CardDetails<Character>[] = [
 ];
 
 const CharacterDetails = (): JSX.Element => {
-  const { currentCharacter } = useCharacters({});
-  const { planets } = usePlanets({ character: currentCharacter });
+  const { currentCharacter, loading, error } = useCharacters({});
+  const { planets, loading: planetsLoading } = usePlanets({
+    character: currentCharacter,
+  });
 
-  if (!currentCharacter) {
-    return <>No Character Found</>;
+  if (loading) {
+    return <Loading isFullPage />;
+  }
+  if (!currentCharacter || error) {
+    return <ErrorMessage message="No Character Found" />;
   }
 
   const { name, homeworld, films } = currentCharacter;
@@ -61,6 +68,7 @@ const CharacterDetails = (): JSX.Element => {
               <p>Home World:</p>
             </LabelContainer>
             <ValueContainer>
+              {planetsLoading && <Loading />}
               {world === "unknown" ? (
                 world
               ) : (

@@ -7,7 +7,11 @@ import { useParams } from "react-router-dom";
 import { DataEndpoints } from "../../models/enums";
 import { Planet } from "../../models/types";
 import { getItemById } from "../../utils/entityUtils";
-import { fetchPlanetsSuccess } from "../../store/planetsSlice";
+import {
+  fetchPlanetsFailure,
+  fetchPlanetsStart,
+  fetchPlanetsSuccess,
+} from "../../store/planetsSlice";
 
 const apiUrl = process.env.REACT_APP_SWAPI_URL;
 
@@ -40,12 +44,22 @@ export const usePlanets = ({ character }: IUsePlanets) => {
       missingPlanetUrls = [character.homeworld];
     }
 
-    if (missingPlanetUrls.length > 0) {
-      fetchEntityData<Planet>(missingPlanetUrls).then((data) => {
-        dispatch(fetchPlanetsSuccess(data));
-      });
+    if (error) {
+      missingPlanetUrls = missingPlanetUrls.filter((url) =>
+        error.some((failed) => failed === url)
+      );
     }
-  }, [character, currentPlanet, dispatch, planet_id]);
+
+    if (missingPlanetUrls.length > 0) {
+      dispatch(fetchPlanetsStart());
+
+      fetchEntityData<Planet>(missingPlanetUrls)
+        .then((data) => dispatch(fetchPlanetsSuccess(data)))
+        .catch((_error) =>
+          dispatch(fetchPlanetsFailure(["Error fetching Planets"]))
+        );
+    }
+  }, [character, currentPlanet, dispatch, error, planet_id]);
 
   return {
     planets,

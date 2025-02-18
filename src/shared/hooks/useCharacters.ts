@@ -41,7 +41,6 @@ export const useCharacters = ({
   };
 
   useEffect(() => {
-    debugger;
     if (isInView || (isInView === undefined && character_id)) {
       let missingCharacterUrls: string[] = [];
 

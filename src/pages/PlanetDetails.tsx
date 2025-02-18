@@ -13,6 +13,8 @@ import { Icons } from "../models/enums";
 import { getIcon } from "../utils/tableUtils";
 import { formatNumber } from "../utils/entityUtils";
 import Dropdown from "../components/DropDown";
+import ErrorMessage from "../components/ErrorMessage";
+import Loading from "../components/Loading";
 
 const cardDetails: CardDetails<Planet>[] = [
   {
@@ -55,10 +57,14 @@ const cardDetails: CardDetails<Planet>[] = [
 ];
 
 const PlanetDetails = (): JSX.Element => {
-  const { currentPlanet } = usePlanets({});
+  const { currentPlanet, loading, error } = usePlanets({});
 
-  if (!currentPlanet) {
-    return <>No Planet Found</>;
+  if (loading) {
+    return <Loading isFullPage />;
+  }
+
+  if (!currentPlanet || error) {
+    return <ErrorMessage message="No Planet Found" />;
   }
 
   const { name, residents, films } = currentPlanet;

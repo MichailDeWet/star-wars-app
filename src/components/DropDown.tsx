@@ -12,6 +12,16 @@ import {
 } from "../utils/entityUtils";
 import { Character, Film } from "../models/types";
 import { useCharacters } from "../shared/hooks/useCharacters";
+import Loading from "./Loading";
+
+const LoadingContainer = styled.div`
+  margin-bottom: 1rem;
+
+  svg {
+    width: 30px !important;
+    height: 30px !important;
+  }
+`;
 
 const SecondaryCardContainer = styled(CardContainer)<{ offSet: number }>`
   width: 100%;
@@ -68,11 +78,19 @@ const Dropdown = ({ films, residents }: IDropdown) => {
   const [isFilmsOpen, setIsFilmsOpen] = useState<boolean>(false);
   const [isResidentsOpen, setIsResidentsOpen] = useState<boolean>(false);
 
-  const { films: allFilms, createNavLink: moviesNavLink } = useMovies({
+  const {
+    films: allFilms,
+    createNavLink: moviesNavLink,
+    loading,
+  } = useMovies({
     isOpen: isFilmsOpen,
   });
 
-  const { characters, createNavLink: charactersNavLink } = useCharacters({
+  const {
+    characters,
+    createNavLink: charactersNavLink,
+    loading: charactersLoading,
+  } = useCharacters({
     isInView: isResidentsOpen,
     givenCharacters: residents,
   });
@@ -115,6 +133,11 @@ const Dropdown = ({ films, residents }: IDropdown) => {
                 </DropDownListItem>
               );
             })}
+          {isFilmsOpen && loading && (
+            <LoadingContainer>
+              <Loading />
+            </LoadingContainer>
+          )}
         </SecondaryCardContainer>
       )}
 
@@ -128,7 +151,6 @@ const Dropdown = ({ films, residents }: IDropdown) => {
           >
             Residents:{getIcon(Icons.CARET)}
           </DropDownHeader>
-
           {isResidentsOpen &&
             characters.length > 0 &&
             residents.map((resident) => {
@@ -158,6 +180,11 @@ const Dropdown = ({ films, residents }: IDropdown) => {
                 </DropDownListItem>
               );
             })}
+          {isResidentsOpen && charactersLoading && (
+            <LoadingContainer>
+              <Loading />
+            </LoadingContainer>
+          )}
         </SecondaryCardContainer>
       )}
     </>
