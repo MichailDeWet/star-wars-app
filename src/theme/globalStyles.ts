@@ -30,4 +30,10 @@ export const GlobalStyles = createGlobalStyle`
       font-size: 60%; 
     }
   }
+
+  @media (max-width: ${DeviceSizes.MOBILE_SMALL}) {
+    html {
+      font-size: 48%; 
+    }
+  }
 `;

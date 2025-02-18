@@ -35,6 +35,7 @@ export const lightTheme: DefaultTheme = {
   headingColor: blue,
   linkColor: blue,
   loadingIconColor: blue,
+  loadingTextColor: blue,
   logoColor: blue,
   tableHeadingHoverBackgroundColor: blue,
   tableHeadingHoverColor: white,
@@ -44,6 +45,9 @@ export const lightTheme: DefaultTheme = {
   heroBackground: LightBackground,
   loadingIcon: Chewbacca,
   themeToggle: JediLogo,
+
+  /* Misc */
+  pageLoadingText: "Rrraaaaarrrgh!",
 };
 
 export const darkTheme: DefaultTheme = {
@@ -60,6 +64,7 @@ export const darkTheme: DefaultTheme = {
   headingColor: yellow,
   linkColor: yellow,
   loadingIconColor: yellow,
+  loadingTextColor: yellow,
   logoColor: yellow,
   tableHeadingHoverBackgroundColor: yellow,
   tableHeadingHoverColor: black,
@@ -69,4 +74,7 @@ export const darkTheme: DefaultTheme = {
   heroBackground: DarkBackground,
   loadingIcon: DarthVader,
   themeToggle: SithLogo,
+
+  /* Misc */
+  pageLoadingText: "You will wait, or face the consequences!",
 };

@@ -26,10 +26,11 @@ export const useObserveElement = () => {
       }
     );
 
-    const element = elementRef.current;
+    let element: HTMLDivElement | null;
 
     /* Checking for element every 100ms to avoid race conditions */
     const checkElement = setInterval(() => {
+      element = elementRef.current;
       if (element) {
         observer.observe(element);
         clearInterval(checkElement);

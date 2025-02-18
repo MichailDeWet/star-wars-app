@@ -3,7 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import { fetchEntityData } from "../../api/entity";
 import { IUseCharacters } from "../../models/interfaces";
-import { fetchCharactersSuccess } from "../../store/charactersSlice";
+import {
+  fetchCharactersFailure,
+  fetchCharactersStart,
+  fetchCharactersSuccess,
+} from "../../store/charactersSlice";
 import { useParams } from "react-router-dom";
 import { extractNumberFromUrl, getItemById } from "../../utils/entityUtils";
 import { DataEndpoints, PagesPaths } from "../../models/enums";
@@ -37,11 +41,12 @@ export const useCharacters = ({
   };
 
   useEffect(() => {
+    debugger;
     if (isInView || (isInView === undefined && character_id)) {
       let missingCharacterUrls: string[] = [];
 
       /* Get only the current character */
-      if (!currentCharacter) {
+      if (!currentCharacter && character_id) {
         missingCharacterUrls = [
           `${apiUrl}${DataEndpoints.PEOPLE}/${character_id}`,
         ];
@@ -52,12 +57,22 @@ export const useCharacters = ({
         missingCharacterUrls = givenCharacters.filter(
           (url) => !characters.some((character) => character.url === url)
         );
+
+        if (error) {
+          missingCharacterUrls = missingCharacterUrls.filter((url) =>
+            error.some((failed) => failed === url)
+          );
+        }
       }
 
       if (missingCharacterUrls.length > 0) {
-        fetchEntityData<Character>(missingCharacterUrls).then((data) => {
-          dispatch(fetchCharactersSuccess(data));
-        });
+        dispatch(fetchCharactersStart());
+
+        fetchEntityData<Character>(missingCharacterUrls)
+          .then((data) => dispatch(fetchCharactersSuccess(data)))
+          .catch((_error) =>
+            dispatch(fetchCharactersFailure(["Error fetching Characters"]))
+          );
       }
     }
   }, [
@@ -67,6 +82,7 @@ export const useCharacters = ({
     character_id,
     currentCharacter,
     dispatch,
+    error,
   ]);
 
   return {

@@ -25,3 +25,11 @@ export interface IDropdown {
   films: string[];
   residents?: string[];
 }
+
+export interface ILoading {
+  isFullPage?: boolean;
+}
+
+export interface IErrorMessage {
+  message: string;
+}

@@ -61,3 +61,5 @@ export type CardDetails<T> = {
   title: string;
   unit?: string;
 };
+
+export type TEntityPromise<T> = { responses: T[]; errors: string[] | null };

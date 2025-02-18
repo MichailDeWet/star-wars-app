@@ -1,5 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Character, SortPayload, TSortDirection } from "../models/types";
+import {
+  Character,
+  SortPayload,
+  TEntityPromise,
+  TSortDirection,
+} from "../models/types";
 import { sortItems } from "../utils/tableUtils";
 import { uniqBy } from "lodash-es";
 
@@ -8,7 +13,7 @@ interface CharactersState {
   sortKey: keyof Character | undefined;
   sortDirection: TSortDirection;
   loading: boolean;
-  error: string | null;
+  error: string[] | null;
 }
 
 const initialState: CharactersState = {
@@ -29,18 +34,16 @@ const characterSlice = createSlice({
     },
     fetchCharactersSuccess(
       state: CharactersState,
-      action: PayloadAction<Character[]>
+      action: PayloadAction<TEntityPromise<Character>>
     ) {
-      state.characters = uniqBy(
-        [...state.characters, ...action.payload],
-        "url"
-      );
+      const { responses, errors } = action.payload;
+      state.characters = uniqBy([...state.characters, ...responses], "url");
       state.loading = false;
-      state.error = null;
+      state.error = errors;
     },
     fetchCharactersFailure(
       state: CharactersState,
-      action: PayloadAction<string>
+      action: PayloadAction<string[]>
     ) {
       state.loading = false;
       state.error = action.payload;

@@ -23,6 +23,8 @@ import { Character, SortPayload, TableHeadings } from "../models/types";
 import { ReactComponent as SortDirection } from "../assets/img/icons/sort-direction.svg";
 import { useCharacters } from "../shared/hooks/useCharacters";
 import { DeviceSizes } from "../models/enums";
+import Loading from "../components/Loading";
+import ErrorMessage from "../components/ErrorMessage";
 
 const DetailContainer = styled.div`
   width: 350px;
@@ -76,10 +78,11 @@ const MovieDetailsPage = (): JSX.Element => {
   );
 
   const { isInView, elementRef } = useObserveElement();
-  const { characters, sortDirection, sortKey, createNavLink } = useCharacters({
-    isInView,
-    givenCharacters: film?.characters,
-  });
+  const { characters, sortDirection, sortKey, loading, error, createNavLink } =
+    useCharacters({
+      isInView,
+      givenCharacters: film?.characters,
+    });
 
   const dispatch = useDispatch();
 
@@ -88,7 +91,7 @@ const MovieDetailsPage = (): JSX.Element => {
   };
 
   if (!film) {
-    return <div>Movie Not Found</div>;
+    return <Loading isFullPage />;
   }
 
   const { title, director, producer, release_date, opening_crawl } = film;
@@ -116,50 +119,53 @@ const MovieDetailsPage = (): JSX.Element => {
 
       <PageContainer>
         <PageTitle ref={elementRef}>Cast</PageTitle>
-        {characters.length > 0 && (
-          <StyledTable>
-            <thead>
-              <tr>
-                {headings.map(({ sortableType, key, label, width }) => (
-                  <StyledTH
-                    key={key}
-                    sortableType={sortableType}
-                    sortDirection={getSortDirection(
-                      key,
-                      sortDirection,
-                      sortKey
-                    )}
-                    onClick={() => handleSort({ key, sortableType })}
-                    width={width}
-                  >
-                    {label}
-                    {getSortIcon(sortableType)}
-                    {getSortDirection<Character>(
-                      key,
-                      sortDirection,
-                      sortKey
-                    ) && <SortDirection className="sort-direction" />}
-                  </StyledTH>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {characters.map(({ url, name, birth_year, gender }) => {
-                return (
-                  <tr key={url}>
-                    <td>{birth_year}</td>
-                    <td>
-                      <NavLink isTableLink to={createNavLink(url, name)}>
-                        {name}
-                      </NavLink>
-                    </td>
-                    <td>{gender}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </StyledTable>
+        {error && error.length > 0 && (
+          <ErrorMessage message="Not all Cast Members showing, please try again later..." />
         )}
+        <StyledTable>
+          <thead>
+            <tr>
+              {headings.map(({ sortableType, key, label, width }) => (
+                <StyledTH
+                  key={key}
+                  sortableType={sortableType}
+                  sortDirection={getSortDirection(key, sortDirection, sortKey)}
+                  onClick={() => handleSort({ key, sortableType })}
+                  width={width}
+                >
+                  {label}
+                  {getSortIcon(sortableType)}
+                  {getSortDirection<Character>(key, sortDirection, sortKey) && (
+                    <SortDirection className="sort-direction" />
+                  )}
+                </StyledTH>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {characters.length > 0 &&
+              characters.map(({ url, name, birth_year, gender }) => (
+                <tr key={url}>
+                  <td>{birth_year}</td>
+                  <td>
+                    <NavLink isTableLink to={createNavLink(url, name)}>
+                      {name}
+                    </NavLink>
+                  </td>
+                  <td>{gender}</td>
+                </tr>
+              ))}
+            {loading && (
+              <tr>
+                <td />
+                <td>
+                  <Loading />
+                </td>
+                <td />
+              </tr>
+            )}
+          </tbody>
+        </StyledTable>
       </PageContainer>
     </>
   );
