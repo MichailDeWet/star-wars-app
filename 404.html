@@ -7,11 +7,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Page Not Found - Star Wars App</title>
     <script type="text/javascript">
-      // Redirect to index.html, but preserve the current path
+      // Get the current path (including hash and query)
       var currentPath = window.location.pathname + window.location.search + window.location.hash;
-      setTimeout(function() {
-        window.location.href = '/star-wars-app/index.html' + currentPath;
-      }, 0);
+
+      // Only redirect if the path is not already the root index.html
+      if (currentPath !== '/star-wars-app/index.html') {
+        setTimeout(function() {
+          window.location.href = '/star-wars-app/index.html' + currentPath;
+        }, 0);
+      } else {
+        // If it's already index.html, no need to append it again
+        setTimeout(function() {
+          window.location.href = '/star-wars-app/';
+        }, 0);
+      }
     </script>
   </head>
   <body></body>
